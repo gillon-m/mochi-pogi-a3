@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import main.Category;
-import main.Cluster;
+import validator.Category;
+import validator.Cluster;
 
 public class TestPopularityCalculation {
 	@Test
