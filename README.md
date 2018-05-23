@@ -7,5 +7,6 @@
 - Merge branch to master
 - All functional branches that pass these tests will be merge to the daily build (master) by the END OF EACH DAY
 
-## Creating Tests
-Add test cases in the src/test/java folder
+## Development
+- Add test cases in the src/test/java folder
+- Add implementations in the src/main/java folder
