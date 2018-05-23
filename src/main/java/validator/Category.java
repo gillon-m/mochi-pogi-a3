@@ -2,9 +2,12 @@ package validator;
 
 public class Category {
 
-	public Object size() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Return number of documents in this category
+	 * @return documents in this category
+	 */
+	public int size() {
+		return 0;
 	}
 
 }
