@@ -5,14 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import main.Category;
-import main.Cluster;
-
 public class TestBusinessIdeaMaturity {
-
+	private final static double EPSILON = 0.001;
 	@Test
 	public void testMaturity() {
-		private final static double EPSILON = 0.001;
+		
 		Cluster bi = new Cluster();
 		
 		Category c1 = Mockito.mock(Category.class);
@@ -42,7 +39,7 @@ public class TestBusinessIdeaMaturity {
 	@Test
 	public void testNoCategories(){
 		Cluster bi = new Cluster();
-		assertEquals(0.0, bi.maturity(), 0.001);
+		assertEquals(0.0, bi.maturity(), EPSILON);
 	}
 	
 	@Test
@@ -52,7 +49,7 @@ public class TestBusinessIdeaMaturity {
 		Mockito.when(c1.size()).thenReturn(20);
 		Mockito.when(c1.relevance()).thenReturn(0.3);
 		bi.add(c1);
-		assertEquals(0.3, bi.maturity(), 0.001);
+		assertEquals(0.3, bi.maturity(), EPSILON);
 		
 	}
 }
