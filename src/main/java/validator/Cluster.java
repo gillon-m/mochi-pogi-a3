@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import validator.Category;
-
+/**
+ * A cluster of categories
+ * @author Gillon Manalastas
+ *
+ */
 public class Cluster {
 	private  Set<Category> _categories;
 	/**
