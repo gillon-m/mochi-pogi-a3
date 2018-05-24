@@ -10,5 +10,13 @@ public class Word {
 	public Word(String name, int weight) {
 		_name = name;
 		_weight = weight;
-	}	
+	}
+
+	public int getWeight() {
+		return _weight;
+	}
+	
+	public void setWeight(int weight) {
+		_weight = weight;
+	}
 }
