@@ -21,13 +21,13 @@ public class StepsChangeSetCategoryRelevance {
 	
 	@When("the user sets the relevance of $category to $relevance")
 	public void whenRelevanceSet(String category, double relevance){
-		Cluster c = _cluster.get(category);
+		Category c = _cluster.get(category);
 		c.relevance(relevance);
 	}
 	
 	
 	@Then("the relevance of $category changes to $setRelevance")
 	public void thenRelevanceChanges(String category, double setRelevance){
-		assertEquals(setRelevance, _cluster.get(category).relevance, EPSILON);
+		assertEquals(setRelevance, _cluster.get(category).relevance(), EPSILON);
 	}
 }
