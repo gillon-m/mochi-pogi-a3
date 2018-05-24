@@ -54,6 +54,15 @@ public class StepsChangeKeywords {
 		_words = _processor.extractKeywords();
 	}
 
+	@Given("An empty keywords list")
+	public void givenEmptyKeywordsList() {
+		_processor = Mockito.mock(InputProcessor.class);
+		Set<Word> words = new HashSet<Word>();
+		
+		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
+		_words = _processor.extractKeywords();
+	}
+
 	@Given("User wants to inject a word to the list")
 	@Alias("User wants to remove a word from the list")
 	public void whenUserWantsToAddToList() {
