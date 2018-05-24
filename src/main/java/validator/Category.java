@@ -1,10 +1,19 @@
 package validator;
 
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * A category of related documents
+ * @author Gillon Manalastas
+ *
+ */
 public class Category {
 	private String _label;
 	private double _relevance;
-	private static final double DEFAULT_RELEVANCE = 0.5;
-	
+	private Set<Document> _documents;
+	private static final double DEFAULT_RELEVANCE = Relevance.RELEVANT.factor();
+
 	/**
 	 * Create a category with a given label
 	 * @param label	what the category is called
@@ -12,15 +21,14 @@ public class Category {
 	public Category(String label){
 		_label = label;
 		_relevance = DEFAULT_RELEVANCE;
+		_documents = new HashSet<Document>();
 	}
-
-
 	/**
 	 * Return number of documents in this category
 	 * @return documents in this category
 	 */
 	public int size() {
-		return 0;
+		return _documents.size();
 	}
 	/**
 	 * Set the relevance of this category compared to the user's idea
@@ -32,6 +40,13 @@ public class Category {
 		r = Math.max(0.0, r);
 		r = Math.min(1.0, r);
 		_relevance = r;
+	}
+	/**
+	 * Set the relevance of this category compared to the user's idea
+	 * @param r
+	 */
+	public void relevance(Relevance r) {
+		relevance(r.factor());
 	}
 	/**
 	 * Get relevance of the category to the user's idea
