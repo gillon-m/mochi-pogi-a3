@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.annotations.Then;
 import static org.junit.Assert.*;
 
-public class StepsChangeSetCategoryRelevance {
+public class StepsChangeCategoryRelevance {
 	private final static double EPSILON = 0.001;
 	Category _c1;
 	Category _c2;

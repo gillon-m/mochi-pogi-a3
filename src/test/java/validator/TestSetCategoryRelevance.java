@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class TestSetCategoryRelevance extends JUnitStory{
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new StepsChangeSetCategoryRelevance());
+		return new InstanceStepsFactory(configuration(), new StepsChangeCategoryRelevance());
 	}
 
 	@Override
