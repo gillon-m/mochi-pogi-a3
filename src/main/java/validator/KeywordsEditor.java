@@ -60,4 +60,22 @@ public class KeywordsEditor {
 		}
 		return true;
 	}
+
+	private Word existsWordWithThisName(String name) {
+		Iterator<Word> iterator = _words.iterator();
+		while (iterator.hasNext()) {
+			Word word = iterator.next();
+			if (word.getName().equals(name)) {
+				return word;
+			}
+		}
+		throw new KeywordException("This keyword does not exist in the list");
+	}
+	
+	public void removeWord(Word wordWithName) {
+		Word word = existsWordWithThisName(wordWithName.getName());
+		if (word != null) {
+			_words.remove(word);
+		}
+	}
 }
