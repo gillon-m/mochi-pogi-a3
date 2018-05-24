@@ -1,11 +1,13 @@
 package validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -32,7 +34,28 @@ public class StepsChangeKeywords {
 		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
 		_words = _processor.extractKeywords();
 	}
+	
+	@Given("A full keywords list")
+	public void givenFullKeywordsList() {
+		_processor = Mockito.mock(InputProcessor.class);
+		Word word1 = Mockito.spy(new Word("Dog", 10));
+		Word word2 = Mockito.spy(new Word("Cat", 9));
+		Word word3 = Mockito.spy(new Word("Rabbit", 8));
+		Word word4 = Mockito.spy(new Word("Horse", 7));
+		Word word5 = Mockito.spy(new Word("Pig", 6));
+		Set<Word> words = new HashSet<Word>();
+		words.add(word1);
+		words.add(word2);
+		words.add(word3);
+		words.add(word4);
+		words.add(word5);
+		
+		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
+		_words = _processor.extractKeywords();
+	}
+
 	@Given("User wants to inject a word to the list")
+	@Alias("User wants to remove a word from the list")
 	public void whenUserWantsToAddToList() {
 		_editor = new KeywordsEditor(_words);
 	}
@@ -60,5 +83,24 @@ public class StepsChangeKeywords {
 	@Then("Error message $message")
 	public void thenUserGetsErrorMessage(String message) {
 		assertEquals(message, _exception.getMessage());
+	}
+	
+	@When("User selects a word $word")
+	public void whenUserRemovesKeyword(String word) {
+		_word = Mockito.spy(new Word(word));
+	}
+	
+	@When("User removes it")
+	public void whenRemoves() {
+		try {
+			_editor.removeWord(_word);			
+		} catch (KeywordException e) {
+			_exception = e;
+		}
+	}
+	
+	@Then("Keyword list no longer have it")
+	public void thenKeywordListNoLongerHaveWord() {
+		assertFalse(_words.contains(_word));
 	}
 }
