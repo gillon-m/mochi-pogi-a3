@@ -17,6 +17,10 @@ public class KeywordsEditor {
 		}
 	}
 	
+	public void injectWord(Word wordToAdd) {
+		_words.add(wordToAdd);
+	}
+
 	private boolean isValidWeight(int weight) {
 		if (weight > 10) {
 			throw new KeywordException("The maximum weight for a keyword is 10");
