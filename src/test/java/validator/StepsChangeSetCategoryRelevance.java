@@ -32,7 +32,7 @@ public class StepsChangeSetCategoryRelevance {
 		assertEquals(c1setRelevance, _cluster.get(c1).relevance(), EPSILON);
 	}
 	
-	@Then("the relevance of $c2 remains as the $defaultRelevance")
+	@Then("the relevance of $c2 remains as $defaultRelevance")
 	public void thenRelevanceIsDefault(String c2, double defaultRelevance){
 		assertEquals(defaultRelevance, _cluster.get(c2).relevance(), EPSILON);
 	}

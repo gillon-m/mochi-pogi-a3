@@ -7,7 +7,7 @@ Scenario:  User changes the relevance of different categories
 Given that the user is given a cluster of categories: <c1>, <c2>
 When the user sets the relevance of <c1> to <c1relevance>
 Then the relevance of <c1> changes to <c1setRelevance>
-And the relevance of <c2> remains as the <defaultRelevance>
+And the relevance of <c2> remains as <defaultRelevance>
 
 Examples:
 |c1|c2|c1relevance|c1setRelevance|defaultRelevance|

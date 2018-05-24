@@ -5,9 +5,15 @@ import java.util.HashSet;
 public class Category {
 	private String _label;
 	private double _relevance;
+	private static final double DEFAULT_RELEVANCE = 0.5;
 	
+	/**
+	 * Create a category with a given label
+	 * @param label	what the category is called
+	 */
 	public Category(String label){
 		_label = label;
+		_relevance = DEFAULT_RELEVANCE;
 	}
 
 	/**
