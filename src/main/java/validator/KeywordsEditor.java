@@ -73,6 +73,9 @@ public class KeywordsEditor {
 	}
 	
 	public void removeWord(Word wordWithName) {
+		if (_words.size() == 0) {
+			throw new KeywordException("The keyword list is empty");
+		}
 		Word word = existsWordWithThisName(wordWithName.getName());
 		if (word != null) {
 			_words.remove(word);

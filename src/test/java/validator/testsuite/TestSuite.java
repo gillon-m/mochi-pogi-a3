@@ -11,6 +11,7 @@ import validator.TestInjectKeywordWhenFull;
 import validator.TestPopularityCalculation;
 import validator.TestRemoveKeywordInvalid;
 import validator.TestRemoveKeywordValid;
+import validator.TestRemoveKeywordWhenEmpty;
 import validator.TestSetCategoryRelevance;
 
 @RunWith(Suite.class)				
@@ -23,6 +24,7 @@ import validator.TestSetCategoryRelevance;
 	TestInjectKeywordWhenFull.class,
 	TestRemoveKeywordValid.class,
 	TestRemoveKeywordInvalid.class,
+	TestRemoveKeywordWhenEmpty.class,
 	TestChangeWeightInvalid.class,
 	TestChangeWeightValid.class
 })
