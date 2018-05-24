@@ -9,5 +9,6 @@
 
 ## Development
 - Add test cases in the src/test/java/validator
+- Add your test case classes in src/test/java/validator/testsuite/TestSuite.java class
 - Add user stories to src/test/resources/validator
 - Add implementations in the src/main/java
