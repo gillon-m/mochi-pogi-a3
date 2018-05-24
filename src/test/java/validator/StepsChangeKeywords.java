@@ -51,7 +51,7 @@ public class StepsChangeKeywords {
 		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
 		_words = _processor.extractKeywords();
 	}
-	
+
 	@Given("User wants to inject a word to the list")
 	public void whenUserWantsToAddToList() {
 		_editor = new KeywordsEditor(_words);
