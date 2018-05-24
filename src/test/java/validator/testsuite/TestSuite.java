@@ -9,6 +9,7 @@ import validator.TestInjectKeywordInvalid;
 import validator.TestInjectKeywordValid;
 import validator.TestInjectKeywordWhenFull;
 import validator.TestPopularityCalculation;
+import validator.TestRemoveKeywordInvalid;
 import validator.TestRemoveKeywordValid;
 import validator.TestSetCategoryRelevance;
 
@@ -21,6 +22,7 @@ import validator.TestSetCategoryRelevance;
 	TestInjectKeywordValid.class,
 	TestInjectKeywordWhenFull.class,
 	TestRemoveKeywordValid.class,
+	TestRemoveKeywordInvalid.class,
 	TestChangeWeightInvalid.class,
 	TestChangeWeightValid.class
 })
