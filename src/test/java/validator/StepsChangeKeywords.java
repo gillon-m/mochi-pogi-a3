@@ -13,16 +13,15 @@ import org.mockito.Mockito;
 
 import validator.exceptions.KeywordException;
 
-public class StepsChangeWeight {
+public class StepsChangeKeywords {
 	private InputProcessor _processor;
-	private Set<Word> _words;
 	private KeywordsEditor _editor;
+	private Set<Word> _words;
 	private Word _word;
-	private int _newWeight;
 	private Throwable _exception;
-
-	@Given("User has keywords")
-	public void givenKeywords() {
+	
+	@Given("Keywords list")
+	public void givenKeywordsList() {
 		_processor = Mockito.mock(InputProcessor.class);
 		Word word1 = Mockito.spy(new Word("Dog", 10));
 		Word word2 = Mockito.spy(new Word("Cat", 9));
@@ -30,41 +29,35 @@ public class StepsChangeWeight {
 		words.add(word1);
 		words.add(word2);
 		
-		Mockito.when(_processor.extractKeywords()).thenReturn(words);		
+		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
 		_words = _processor.extractKeywords();
 	}
-	
-	@Given("User wants to change the weight")
-	public void givenUserWantsToChangeWeight() {
+	@Given("User wants to inject a word to the list")
+	public void whenUserWantsToAddToList() {
 		_editor = new KeywordsEditor(_words);
 	}
 	
-	@Given("User selects one keyword to change its weight")
-	public void givenUserSelectsOneKeyword() {
-		_word = (Word) _words.toArray()[0];
+	@Given("The word is $word with a weight of $weight")
+	public void givenWord(String word, int weight) {
+		_word = Mockito.spy(new Word(word, weight));
 	}
-	
-	@Given("The new weight is $weight")
-	public void givenWeight(int weight) {
-		_newWeight = weight;
-	}
-	
-	@When("User sets the new weight")
-	public void whenUserSetsNewWeight() {
+
+	@When("User injects it")
+	public void whenUserInjectsWord() {
 		try {
-			_editor.changeKeywordPriority(_word, _newWeight);
+			_editor.injectWord(_word);
 		} catch (KeywordException e) {
 			_exception = e;
 		}
 	}
-
-	@Then("The weight of the keyword changes")
-	public void thenWeightOfKeywordsChanged() {
-		assertEquals(_newWeight, _word.getWeight());
+	
+	@Then("The word is added to the list")
+	public void thenWordAddedToList() {
+		assertTrue(_words.contains(_word));
 		assertTrue(_exception == null);
 	}
 	
-	@Then("User gets an error message $message")
+	@Then("Error message $message")
 	public void thenUserGetsErrorMessage(String message) {
 		assertEquals(message, _exception.getMessage());
 	}
