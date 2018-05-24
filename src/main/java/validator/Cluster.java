@@ -54,7 +54,7 @@ public class Cluster {
 		for(Category c: _categories){
 			totalDocuments+=c.size();
 		}
-		Category c = findCategory(category);
+		Category c = get(category);
 		if(c==null){
 			return 0.0;
 		}else{
@@ -66,11 +66,11 @@ public class Cluster {
 		}
 	}
 	/**
-	 * Find the selected category
+	 * Get the selected category
 	 * @param category
 	 * @return desired category
 	 */
-	private Category findCategory(String category){
+	public Category get(String category){
 		for(Category c: _categories){
 			if(c.toString().equals(category)){
 				return c;
@@ -78,5 +78,4 @@ public class Cluster {
 		}
 		return null;
 	}
-
 }
