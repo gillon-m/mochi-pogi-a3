@@ -11,3 +11,5 @@ Then the relevance of <category> changes to <setRelevance>
 Examples:
 |c1|category|relevance|setRelevance|
 |Dog|Dog|0.2|0.2|
+|Dog|Dog|-0.23|0.0|
+|Dog|Dog|1.2|1.0|
