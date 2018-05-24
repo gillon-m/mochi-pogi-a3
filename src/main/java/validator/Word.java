@@ -19,7 +19,7 @@ public class Word {
 	public void setWeight(int weight) {
 		_weight = weight;
 	}
-
+	
 	public String getName() {
 		return _name;
 	}

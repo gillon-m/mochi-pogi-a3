@@ -1,4 +1,4 @@
-package test.cases;
+package validator;
 
 import static org.junit.Assert.assertEquals;
 
