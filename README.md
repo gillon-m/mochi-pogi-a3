@@ -8,5 +8,6 @@
 - All functional branches that pass these tests will be merged to the daily build (master) by the END OF EACH DAY
 
 ## Development
-- Add test cases in the src/test/java folder
-- Add implementations in the src/main/java folder
+- Add test cases in the src/test/java/validator
+- Add user stories to src/test/resources/validator
+- Add implementations in the src/main/java
