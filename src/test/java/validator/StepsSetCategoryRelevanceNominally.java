@@ -17,22 +17,16 @@ public class StepsSetCategoryRelevanceNominally {
 	@When("the user sets the relevance of category to $nominalRelevance")
 	public void whenSetNominalRelevance(String nominalRelevance){
 		Relevance r = null;
-		switch(nominalRelevance){
-		case "NOT_RELEVANT":
+		if(nominalRelevance.equals("NOT_RELEVANT")){
 			r = Relevance.NOT_RELEVANT;
-			break;
-		case "WEAK_RELEVANT":
+		}else if(nominalRelevance.equals("WEAK_RELEVANT")){
 			r = Relevance.WEAK_RELEVANT;
-			break;
-		case "RELEVANT":
+		}else if(nominalRelevance.equals("RELEVANT")){
 			r = Relevance.RELEVANT;
-			break;
-		case "VERY_RELEVANT":
+		}else if(nominalRelevance.equals("VERY_RELEVANT")){
 			r = Relevance.VERY_RELEVANT;
-			break;
-		case "THE_SAME":
+		}else if(nominalRelevance.equals("THE_SAME")){
 			r = Relevance.THE_SAME;
-			break;
 		}
 		_category.relevance(r);
 	}
