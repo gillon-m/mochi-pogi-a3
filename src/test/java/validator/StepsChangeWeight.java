@@ -1,6 +1,7 @@
 package validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,6 +61,7 @@ public class StepsChangeWeight {
 	@Then("The weight of the keyword changes")
 	public void thenWeightOfKeywordsChanged() {
 		assertEquals(_newWeight, _word.getWeight());
+		assertTrue(_exception == null);
 	}
 	
 	@Then("User gets an error message $message")
