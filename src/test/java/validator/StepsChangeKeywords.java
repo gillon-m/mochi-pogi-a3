@@ -1,11 +1,13 @@
 package validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -53,6 +55,7 @@ public class StepsChangeKeywords {
 	}
 
 	@Given("User wants to inject a word to the list")
+	@Alias("User wants to remove a word from the list")
 	public void whenUserWantsToAddToList() {
 		_editor = new KeywordsEditor(_words);
 	}
@@ -80,5 +83,20 @@ public class StepsChangeKeywords {
 	@Then("Error message $message")
 	public void thenUserGetsErrorMessage(String message) {
 		assertEquals(message, _exception.getMessage());
+	}
+	
+	@When("User selects a word $word")
+	public void whenUserRemovesKeyword(String word) {
+		_word = Mockito.spy(new Word(word));
+	}
+	
+	@When("User removes it")
+	public void whenRemoves() {
+		_editor.removeWord(_word);			
+	}
+	
+	@Then("Keyword list no longer have it")
+	public void thenKeywordListNoLongerHaveWord() {
+		assertFalse(_words.contains(_word));
 	}
 }
