@@ -78,9 +78,4 @@ public class Cluster {
 		}
 		return null;
 	}
-	public void relevance(double relevance) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

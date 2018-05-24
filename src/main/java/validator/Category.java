@@ -1,7 +1,5 @@
 package validator;
 
-import java.util.HashSet;
-
 public class Category {
 	private String _label;
 	private double _relevance;
@@ -16,6 +14,7 @@ public class Category {
 		_relevance = DEFAULT_RELEVANCE;
 	}
 
+
 	/**
 	 * Return number of documents in this category
 	 * @return documents in this category
@@ -23,7 +22,6 @@ public class Category {
 	public int size() {
 		return 0;
 	}
-
 	/**
 	 * Set the relevance of this category compared to the user's idea
 	 * If set < 0.0 then it is set to 0
