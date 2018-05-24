@@ -10,12 +10,15 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.mockito.Mockito;
 
+import validator.exceptions.KeywordException;
+
 public class StepsChangeWeight {
 	private InputProcessor _processor;
 	private Set<Word> _words;
 	private KeywordsEditor _editor;
 	private Word _word;
 	private int _newWeight;
+	private Throwable _exception;
 
 	@Given("User has keywords")
 	public void givenKeywords() {
@@ -47,11 +50,20 @@ public class StepsChangeWeight {
 	
 	@When("User sets the new weight")
 	public void whenUserSetsNewWeight() {
-		_editor.changeKeywordPriority(_word, _newWeight);
+		try {
+			_editor.changeKeywordPriority(_word, _newWeight);
+		} catch (KeywordException e) {
+			_exception = e;
+		}
 	}
 
 	@Then("The weight of the keyword changes")
 	public void thenWeightOfKeywordsChanged() {
 		assertEquals(_newWeight, _word.getWeight());
+	}
+	
+	@Then("User gets an error message $message")
+	public void thenUserGetsErrorMessage(String message) {
+		assertEquals(message, _exception.getMessage());
 	}
 }
