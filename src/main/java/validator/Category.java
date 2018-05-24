@@ -5,6 +5,7 @@ import java.util.HashSet;
 public class Category {
 	private String _label;
 	private double _relevance;
+	
 	public Category(String label){
 		_label = label;
 	}
@@ -34,5 +35,9 @@ public class Category {
 	 */
 	public double relevance() {
 		return _relevance;
+	}
+	@Override
+	public String toString(){
+		return _label;
 	}
 }
