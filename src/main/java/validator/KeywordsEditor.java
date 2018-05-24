@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import validator.exceptions.KeywordException;
 
 public class KeywordsEditor {
+	private final int MAX_SIZE = 5;
 	private Set<Word> _words;
 	public KeywordsEditor(Set<Word> words) {
 		_words = words;
@@ -20,6 +21,9 @@ public class KeywordsEditor {
 	}
 	
 	public void injectWord(Word wordToAdd) {
+		if (_words.size() == MAX_SIZE) {
+			throw new KeywordException("You can only have up to 5 keywords");
+		}
 		if (isValidName(wordToAdd.getName()) && (isValidWeight(wordToAdd.getWeight()))) {
 			_words.add(wordToAdd);			
 		}
