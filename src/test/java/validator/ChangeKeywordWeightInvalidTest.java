@@ -10,11 +10,11 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
-import validator.steps.ChangeWeightSteps;
+import validator.steps.ChangeKeywordWeightInvalidSteps;
 
-public class ChangeWeightInvalidTest extends JUnitStory {
+public class ChangeKeywordWeightInvalidTest extends JUnitStory {
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new ChangeWeightSteps());
+		return new InstanceStepsFactory(configuration(), new ChangeKeywordWeightInvalidSteps());
 	}
 	
 	@Override

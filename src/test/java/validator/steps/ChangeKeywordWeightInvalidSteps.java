@@ -1,7 +1,6 @@
 package validator.steps;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,15 +15,14 @@ import validator.KeywordsEditor;
 import validator.Word;
 import validator.exceptions.KeywordException;
 
-public class ChangeWeightSteps {
+public class ChangeKeywordWeightInvalidSteps {
 	private InputProcessor _processor;
 	private Set<Word> _words;
 	private KeywordsEditor _editor;
 	private Word _word;
-	private int _newWeight;
 	private Throwable _exception;
 
-	@Given("User has keywords")
+	@Given("A keywords list")
 	public void givenKeywords() {
 		_processor = Mockito.mock(InputProcessor.class);
 		Word word1 = Mockito.spy(new Word("Dog", 10));
@@ -37,34 +35,15 @@ public class ChangeWeightSteps {
 		_words = _processor.extractKeywords();
 	}
 	
-	@Given("User wants to change the weight")
-	public void givenUserWantsToChangeWeight() {
+	@When("User wants to change the weight of a keyword to $weight")
+	public void givenUserWantsToChangeWeight(int weight) {
 		_editor = new KeywordsEditor(_words);
-	}
-	
-	@Given("User selects one keyword to change its weight")
-	public void givenUserSelectsOneKeyword() {
 		_word = (Word) _words.toArray()[0];
-	}
-	
-	@Given("The new weight is $weight")
-	public void givenWeight(int weight) {
-		_newWeight = weight;
-	}
-	
-	@When("User sets the new weight")
-	public void whenUserSetsNewWeight() {
 		try {
-			_editor.changeKeywordPriority(_word, _newWeight);
+			_editor.changeKeywordPriority(_word, weight);
 		} catch (KeywordException e) {
 			_exception = e;
 		}
-	}
-
-	@Then("The weight of the keyword changes")
-	public void thenWeightOfKeywordsChanged() {
-		assertEquals(_newWeight, _word.getWeight());
-		assertTrue(_exception == null);
 	}
 	
 	@Then("User gets an error message $message")

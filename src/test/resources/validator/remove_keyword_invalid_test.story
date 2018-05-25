@@ -4,11 +4,9 @@ As a user
 I want to change keywords on the keyword list
 
 Scenario: User removes a keyword that does not exist
-Given Keywords list
-And User wants to remove a word from the list
-When User selects a word <word>
-And User removes it
-Then Error message <message>
+Given A keywords list
+When User selects a word <word> to remove from the list
+Then User gets an error message <message>
 
 Examples:
 |word|message|
