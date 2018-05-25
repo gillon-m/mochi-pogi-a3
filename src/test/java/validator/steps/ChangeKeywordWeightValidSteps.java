@@ -38,7 +38,7 @@ public class ChangeKeywordWeightValidSteps {
 	}
 	
 	@When("User wants to change the weight of a keyword to $weight")
-	public void givenUserWantsToChangeWeight(int weight) {
+	public void whenUserChangesWeightOfKeywordToValidWeight(int weight) {
 		_editor = new KeywordsEditor(_words);
 		_newWeight = weight;
 		_word = (Word) _words.toArray()[0];

@@ -36,7 +36,7 @@ public class RemoveKeywordInvalidSteps {
 	}
 
 	@When("User selects a word $word to remove from the list")
-	public void whenUserRemovesKeyword(String word) {
+	public void whenUserRemovesInvalidKeyword(String word) {
 		_editor = new KeywordsEditor(_words);
 		_word = Mockito.spy(new Word(word));
 		try {

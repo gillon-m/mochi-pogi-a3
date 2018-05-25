@@ -32,7 +32,7 @@ public class RemoveKeywordWhenEmptySteps {
 	}
 
 	@When("User selects a word $word to remove from the list")
-	public void whenUserRemovesKeyword(String word) {
+	public void whenUserRemovesKeywordFromEmptyList(String word) {
 		_editor = new KeywordsEditor(_words);
 		_word = Mockito.spy(new Word(word));
 		try {

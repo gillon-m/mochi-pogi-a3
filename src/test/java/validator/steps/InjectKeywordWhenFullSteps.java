@@ -42,7 +42,7 @@ public class InjectKeywordWhenFullSteps {
 	}
 
 	@When("User injects a word $word with a weight of $weight")
-	public void whenUserInjectsAWordToList(String word, int weight) {
+	public void whenUserInjectsAWordToAFullList(String word, int weight) {
 		_editor = new KeywordsEditor(_words);
 		_word = Mockito.spy(new Word(word, weight));
 		try {
