@@ -1,11 +1,15 @@
-package validator;
+package validator.steps;
 
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.When;
+
+import validator.Category;
+import validator.Cluster;
+
 import org.jbehave.core.annotations.Then;
 import static org.junit.Assert.*;
 
-public class StepsChangeSetCategoryRelevance {
+public class ChangeSetCategoryRelevanceSteps {
 	private final static double EPSILON = 0.001;
 	Category _c1;
 	Category _c2;

@@ -10,11 +10,13 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
-public class TestChangeWeightValid extends JUnitStory {
+import validator.steps.SetCategoryRelevanceSteps;
+
+public class SetCategoryRelevanceTest extends JUnitStory{
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new StepsChangeWeight());
+		return new InstanceStepsFactory(configuration(), new SetCategoryRelevanceSteps());
 	}
-	
+
 	@Override
 	public Configuration configuration() {
 		return new MostUsefulConfiguration().useStoryLoader(

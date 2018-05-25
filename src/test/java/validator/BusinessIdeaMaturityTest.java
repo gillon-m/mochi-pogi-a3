@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class TestBusinessIdeaMaturity {
+public class BusinessIdeaMaturityTest {
 	private final static double EPSILON = 0.001;
 	@Test
 	public void testMaturity() {

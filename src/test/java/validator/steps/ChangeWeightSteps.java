@@ -1,4 +1,4 @@
-package validator;
+package validator.steps;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -11,9 +11,12 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.mockito.Mockito;
 
+import validator.InputProcessor;
+import validator.KeywordsEditor;
+import validator.Word;
 import validator.exceptions.KeywordException;
 
-public class StepsChangeWeight {
+public class ChangeWeightSteps {
 	private InputProcessor _processor;
 	private Set<Word> _words;
 	private KeywordsEditor _editor;

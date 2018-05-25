@@ -10,9 +10,11 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
-public class TestRemoveKeywordWhenEmpty extends JUnitStory {
+import validator.steps.ChangeKeywordsSteps;
+
+public class RemoveKeywordValidTest extends JUnitStory {
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new StepsChangeKeywords());
+		return new InstanceStepsFactory(configuration(), new ChangeKeywordsSteps());
 	}
 	
 	@Override
