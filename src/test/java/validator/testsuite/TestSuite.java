@@ -3,32 +3,32 @@ package validator.testsuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import validator.TestChangeWeightInvalid;
-import validator.TestChangeWeightValid;
-import validator.TestInjectKeywordInvalid;
-import validator.TestInjectKeywordValid;
-import validator.TestInjectKeywordWhenFull;
-import validator.TestPopularityCalculation;
-import validator.TestRemoveKeywordInvalid;
-import validator.TestRemoveKeywordValid;
-import validator.TestRemoveKeywordWhenEmpty;
-import validator.TestSetCategoryRelevance;
-import validator.TestSetCategoryRelevanceNominally;
+import validator.ChangeWeightInvalidTest;
+import validator.ChangeWeightValidTest;
+import validator.InjectKeywordInvalidTest;
+import validator.InjectKeywordValidTest;
+import validator.InjectKeywordWhenFullTest;
+import validator.PopularityCalculationTest;
+import validator.RemoveKeywordInvalidTest;
+import validator.RemoveKeywordValidTest;
+import validator.RemoveKeywordWhenEmptyTest;
+import validator.SetCategoryRelevanceTest;
+import validator.SetCategoryRelevanceNominallyTest;
 
 @RunWith(Suite.class)				
 @Suite.SuiteClasses({
 	//add test cases here
-	TestPopularityCalculation.class,
-	TestSetCategoryRelevance.class,
-	TestSetCategoryRelevanceNominally.class,
-	TestInjectKeywordInvalid.class,
-	TestInjectKeywordValid.class,
-	TestInjectKeywordWhenFull.class,
-	TestRemoveKeywordValid.class,
-	TestRemoveKeywordInvalid.class,
-	TestRemoveKeywordWhenEmpty.class,
-	TestChangeWeightInvalid.class,
-	TestChangeWeightValid.class
+	PopularityCalculationTest.class,
+	SetCategoryRelevanceTest.class,
+	SetCategoryRelevanceNominallyTest.class,
+	InjectKeywordInvalidTest.class,
+	InjectKeywordValidTest.class,
+	InjectKeywordWhenFullTest.class,
+	RemoveKeywordValidTest.class,
+	RemoveKeywordInvalidTest.class,
+	RemoveKeywordWhenEmptyTest.class,
+	ChangeWeightInvalidTest.class,
+	ChangeWeightValidTest.class
 })
 public class TestSuite {
 

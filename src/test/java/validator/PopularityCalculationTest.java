@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import validator.Category;
 import validator.Cluster;
 
-public class TestPopularityCalculation {
+public class PopularityCalculationTest {
 	@Test
 	public void testPopularityCalculation() {
 		Category c1 = Mockito.mock(Category.class);

@@ -10,9 +10,11 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
-public class TestInjectKeywordWhenFull extends JUnitStory {
+import validator.steps.ChangeWeightSteps;
+
+public class ChangeWeightInvalidTest extends JUnitStory {
 	public InjectableStepsFactory stepsFactory() {
-		return new InstanceStepsFactory(configuration(), new StepsChangeKeywords());
+		return new InstanceStepsFactory(configuration(), new ChangeWeightSteps());
 	}
 	
 	@Override
@@ -27,5 +29,4 @@ public class TestInjectKeywordWhenFull extends JUnitStory {
 	public void run() throws Throwable {
 		super.run();
 	}
-
 }

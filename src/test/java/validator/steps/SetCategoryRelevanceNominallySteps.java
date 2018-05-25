@@ -1,12 +1,16 @@
-package validator;
+package validator.steps;
 
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+
+import validator.Category;
+import validator.Relevance;
+
 import static org.junit.Assert.*;
 
 
-public class StepsSetCategoryRelevanceNominally {
+public class SetCategoryRelevanceNominallySteps {
 	private final static double EPSILON = 0.001;
 	Category _category;
 	
