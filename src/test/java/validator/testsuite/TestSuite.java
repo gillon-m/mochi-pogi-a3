@@ -3,8 +3,8 @@ package validator.testsuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import validator.ChangeWeightInvalidTest;
-import validator.ChangeWeightValidTest;
+import validator.ChangeKeywordWeightInvalidTest;
+import validator.ChangeKeywordWeightValidTest;
 import validator.InjectKeywordInvalidTest;
 import validator.InjectKeywordValidTest;
 import validator.InjectKeywordWhenFullTest;
@@ -27,8 +27,8 @@ import validator.SetCategoryRelevanceNominallyTest;
 	RemoveKeywordValidTest.class,
 	RemoveKeywordInvalidTest.class,
 	RemoveKeywordWhenEmptyTest.class,
-	ChangeWeightInvalidTest.class,
-	ChangeWeightValidTest.class
+	ChangeKeywordWeightInvalidTest.class,
+	ChangeKeywordWeightValidTest.class
 })
 public class TestSuite {
 
