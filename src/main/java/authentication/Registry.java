@@ -1,5 +1,5 @@
 package authentication;
 
-public class Database {
+public class Registry {
 
 }

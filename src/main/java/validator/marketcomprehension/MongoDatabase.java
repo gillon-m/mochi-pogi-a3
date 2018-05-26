@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import authentication.Registry;
 import validator.Word;
 import validator.marketcomprehension.Document;
 import validator.marketcomprehension.DocumentBuilder;
 
-public class MongoDatabase {
+public class MongoDatabase { 
 
 	private List<Document> documents;
 	
 	public MongoDatabase() {
 		initializeDocumentRegistry();
 	}
-	
+
 	public List<Document> getList() {
 		initializeDocumentRegistry();
 		return documents;
