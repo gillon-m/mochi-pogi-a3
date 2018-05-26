@@ -19,6 +19,7 @@ import validator.SetCategoryRelevanceNominallyTest;
 @RunWith(Suite.class)				
 @Suite.SuiteClasses({
 	//add test cases here
+	BusinessIdeaMaturityTest.class,
 	PopularityCalculationTest.class,
 	SetCategoryRelevanceTest.class,
 	SetCategoryRelevanceNominallyTest.class,
