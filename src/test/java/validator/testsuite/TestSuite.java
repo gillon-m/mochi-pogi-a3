@@ -25,6 +25,7 @@ import validator.SetCategoryRelevanceNominallyTest;
 	PopularityCalculationTest.class,
 	SetCategoryRelevanceTest.class,
 	SetCategoryRelevanceNominallyTest.class,
+	BusinessIdeaMaturityTest.class,
 	InjectKeywordInvalidTest.class,
 	InjectKeywordValidTest.class,
 	InjectKeywordWhenFullTest.class,
