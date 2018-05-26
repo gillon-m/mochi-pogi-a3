@@ -8,7 +8,7 @@ public interface Role {
 	public void setUsername(String username);
 	public void setPassword(String password);
 	
-	public void signIn();
-	public void signOut();
+	public boolean signIn();
+	public boolean signOut();
 	
 }
