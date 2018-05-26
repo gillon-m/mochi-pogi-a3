@@ -25,7 +25,7 @@ import validator.marketcomprehension.SearchEngine;
 import validator.marketcomprehension.Summary;
 import validator.Category;
 
-public class MarketComprehensionDocuments {
+public class MarketComprehensionTest {
 	@Mock SearchEngine se;
 	@Mock MongoClient mongoClient;
 	@Mock MongoDatabase mongoDatabase;
@@ -33,7 +33,7 @@ public class MarketComprehensionDocuments {
 	String documentRegistryDBName;
 
 	@Before
-	public void setUpTestFixture() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		documentRegistryDBName = "DocumentRegistry";
 		mongoClient = Mockito.mock(MongoClient.class);
@@ -58,7 +58,7 @@ public class MarketComprehensionDocuments {
 
 
 	@Test
-	public void testSearchReturnsDocuments() {
+	public void searchWithKeywordsShouldGiveDocuments() {
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> docs = getDocumentsOnKeywords(keywords);
 		assert(!docs.isEmpty());
@@ -66,7 +66,7 @@ public class MarketComprehensionDocuments {
 
 	@SuppressWarnings({ "unchecked" })
 	@Test
-	public void testSearchReturnsTrainingClusteredDocuments() {
+	public void searchTrainingWithTrainingCategoryShouldReturnThreeDocuments() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -85,7 +85,7 @@ public class MarketComprehensionDocuments {
 
 	@SuppressWarnings({ "deprecation" })
 	@Test
-	public void testSearchReturnsDogClusteredDocuments() {
+	public void searchTrainingWithDogCategoryShouldReturnOneDocument() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -102,7 +102,7 @@ public class MarketComprehensionDocuments {
 
 	@SuppressWarnings({ "unchecked" })
 	@Test
-	public void testSearchReturnsAnimalsClusteredDocuments() {
+	public void searchTrainingWithAnimalsCategoryShouldReturnTwoDocuments() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -120,7 +120,7 @@ public class MarketComprehensionDocuments {
 
 	@SuppressWarnings({ "deprecation" })
 	@Test
-	public void testSearchReturnsParrotsClusteredDocuments() {
+	public void searchTrainingWithParrotCategoryShouldReturnTwoDocuments() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -136,7 +136,7 @@ public class MarketComprehensionDocuments {
 	}
 	@SuppressWarnings({ "deprecation" })
 	@Test
-	public void testSearchReturnsDaycareClusteredDocuments() {
+	public void searchTrainingWithDaycareCategoryShouldReturnOneDocument() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -153,7 +153,7 @@ public class MarketComprehensionDocuments {
 
 	@SuppressWarnings({ "deprecation" })
 	@Test
-	public void testSearchReturnsBaristaClusteredDocuments() {
+	public void searchTrainingWithBaristaCategoryShouldReturnOneDocument() {
 		MarketComprehension mc = new MarketComprehension();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -169,7 +169,7 @@ public class MarketComprehensionDocuments {
 	}
 
 		@Test
-		public void testSearchTrainingCategoryBaristaLabelGeneration() {
+		public void generateBaristaLabelShouldReturnTwoCategories() {
 			MarketComprehension mc = new MarketComprehension();
 			List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 			List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -186,7 +186,7 @@ public class MarketComprehensionDocuments {
 		}
 		
 		@Test
-		public void testTrainingCategoryTrainingLabelGeneration() {
+		public void generateTrainingLabelShouldReturnSixCategories() {
 			MarketComprehension mc = new MarketComprehension();
 			List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 			List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -203,7 +203,7 @@ public class MarketComprehensionDocuments {
 		}
 		
 		@Test
-		public void testWalkingCategoryDogLabelGeneration() {
+		public void generateWalkingLabelShouldReturnTwoCategories() {
 			MarketComprehension mc = new MarketComprehension();
 			List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Walking")));
 			List<Document> documents = getDocumentsOnKeywords(keywords);
@@ -220,7 +220,7 @@ public class MarketComprehensionDocuments {
 		}
 		
 		@Test
-		public void testSummariseTrainingCategory() {
+		public void trainingCategoryGeneratesASummary() {
 			MarketComprehension mc = new MarketComprehension();
 			List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 			List<Document> documents = getDocumentsOnKeywords(keywords);
