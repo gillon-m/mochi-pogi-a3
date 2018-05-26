@@ -145,4 +145,15 @@ public class AuthenticationRoleTest {
 		assertTrue(admin.signOut());
 
 	}
+	
+	
+	
+	/*Administrators need to know how many users have registered.*/
+	@Test
+	public void adminChecksNumberOfUsersTest() {
+		Administrator admin = new Administrator("username", "password");
+		databaseRegistry.checkUserCount();
+		
+	}
+
 }

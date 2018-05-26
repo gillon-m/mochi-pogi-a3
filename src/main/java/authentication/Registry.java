@@ -43,4 +43,9 @@ public class Registry {
 		return null;
 	}
 
+	public void checkUserCount() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
