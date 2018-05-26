@@ -2,6 +2,9 @@ package validator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -9,8 +12,6 @@ public class BusinessIdeaMaturityTest {
 	private final static double EPSILON = 0.001;
 	@Test
 	public void testMaturity() {
-		
-		Cluster bi = new Cluster();
 		
 		Category c1 = Mockito.mock(Category.class);
 		Mockito.when(c1.size()).thenReturn(20);
@@ -28,11 +29,13 @@ public class BusinessIdeaMaturityTest {
 		Mockito.when(c5.size()).thenReturn(30);
 		Mockito.when(c5.relevance()).thenReturn(0.8);
 		
-		bi.add(c1);
-		bi.add(c2);
-		bi.add(c3);
-		bi.add(c4);
-		bi.add(c5);
+		Set<Category> categories = new HashSet<Category>();
+		categories.add(c1);
+		categories.add(c2);
+		categories.add(c3);
+		categories.add(c4);
+		categories.add(c5);
+		Cluster bi = new Cluster(categories);
 		
 		assertEquals(0.57, bi.maturity(), EPSILON);
 	}

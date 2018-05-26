@@ -2,6 +2,9 @@ package validator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -51,11 +54,13 @@ public class PopularityCalculationTest {
 		Mockito.when(c1.size()).thenReturn(0);
 		Mockito.when(c2.size()).thenReturn(0);
 		Mockito.when(c3.size()).thenReturn(0);
+		Set<Category> categories = new HashSet<Category>();
+		categories.add(c1);
+		categories.add(c2);
+		categories.add(c3);
 		
 		Cluster bi = new Cluster();
-		bi.add(c1);
-		bi.add(c2);
-		bi.add(c3);
+		bi.add(categories);
 		
 		assertEquals(0.0, bi.getPopularity(c1), 0.001);
 		assertEquals(0.0, bi.getPopularity(c2), 0.001);

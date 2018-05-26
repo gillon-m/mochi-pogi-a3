@@ -37,7 +37,7 @@ public class Cluster {
 	 * Adds categories of documents to the cluster
 	 * @param c
 	 */
-	public void add(List<Category> c){
+	public void add(Set<Category> c){
 		_categories.addAll(c);
 	}
 	/**
