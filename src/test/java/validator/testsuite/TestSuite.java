@@ -3,7 +3,7 @@ package validator.testsuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import validator.MarketComprehensionDocuments;
+import validator.MarketComprehensionTest;
 import validator.BusinessIdeaMaturityTest;
 import validator.ChangeKeywordWeightInvalidTest;
 import validator.ChangeKeywordWeightValidTest;
@@ -20,7 +20,7 @@ import validator.SetCategoryRelevanceNominallyTest;
 @RunWith(Suite.class)				
 @Suite.SuiteClasses({
 	//add test cases here
-	MarketComprehensionDocuments.class,
+	MarketComprehensionTest.class,
 	BusinessIdeaMaturityTest.class,
 	PopularityCalculationTest.class,
 	SetCategoryRelevanceTest.class,
