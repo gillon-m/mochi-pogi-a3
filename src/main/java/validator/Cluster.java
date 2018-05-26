@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import validator.Category;
-
+/**
+ * A cluster of categories
+ * @author Gillon Manalastas
+ *
+ */
 public class Cluster {
 	private  Set<Category> _categories;
 	/**
@@ -78,4 +82,15 @@ public class Cluster {
 		}
 		return null;
 	}
+	/**
+	 * Calculate the maturity of the business idea in the market
+	 * @return
+	 */
+	public double maturity() {
+		double maturity=0.0;
+		for(Category c: _categories){
+			maturity+=c.relevance()*getPopularity(c);
+		}
+		return maturity;
+	}	
 }

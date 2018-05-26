@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import validator.exceptions.KeywordException;
 
 public class KeywordsEditor {
+	private final int MAX_SIZE = 5;
 	private Set<Word> _words;
 	public KeywordsEditor(Set<Word> words) {
 		_words = words;
@@ -20,6 +21,9 @@ public class KeywordsEditor {
 	}
 	
 	public void injectWord(Word wordToAdd) {
+		if (_words.size() == MAX_SIZE) {
+			throw new KeywordException("You can only have up to 5 keywords");
+		}
 		if (isValidName(wordToAdd.getName()) && (isValidWeight(wordToAdd.getWeight()))) {
 			_words.add(wordToAdd);			
 		}
@@ -55,5 +59,26 @@ public class KeywordsEditor {
 			}
 		}
 		return true;
+	}
+
+	private Word existsWordWithThisName(String name) {
+		Iterator<Word> iterator = _words.iterator();
+		while (iterator.hasNext()) {
+			Word word = iterator.next();
+			if (word.getName().equals(name)) {
+				return word;
+			}
+		}
+		throw new KeywordException("This keyword does not exist in the list");
+	}
+	
+	public void removeWord(Word wordWithName) {
+		if (_words.size() == 0) {
+			throw new KeywordException("The keyword list is empty");
+		}
+		Word word = existsWordWithThisName(wordWithName.getName());
+		if (word != null) {
+			_words.remove(word);
+		}
 	}
 }

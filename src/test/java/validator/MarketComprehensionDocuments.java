@@ -25,7 +25,7 @@ import validator.marketcomprehension.SearchEngine;
 import validator.marketcomprehension.Summary;
 import validator.Category;
 
-public class TestMarketComprehension {
+public class MarketComprehensionDocuments {
 	@Mock SearchEngine se;
 	@Mock MongoClient mongoClient;
 	@Mock MongoDatabase mongoDatabase;

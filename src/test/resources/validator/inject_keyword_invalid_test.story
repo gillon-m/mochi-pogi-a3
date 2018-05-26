@@ -4,11 +4,9 @@ As a user
 I want to change keywords on the keyword list
 					 
 Scenario:  User injects an existing keyword
-Given Keywords list
-And User wants to inject a word to the list
-And The word is <word> with a weight of <weight>
-When User injects it
-Then Error message <message>
+Given A keywords list
+When User injects a word <word> with a weight of <weight>
+Then User gets an error message <message>
 
 Examples:
 |word|weight|message|
