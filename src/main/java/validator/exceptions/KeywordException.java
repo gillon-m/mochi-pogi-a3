@@ -10,14 +10,5 @@ public class KeywordException extends RuntimeException {
 	
 	public String getMessage() {
 		return _message;
-	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof KeywordException 
-				&& _message == ((KeywordException) other)._message) {
-			return true;
-		}
-		return false;
-	}
+	}	
 }

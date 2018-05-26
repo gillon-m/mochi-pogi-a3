@@ -3,6 +3,8 @@ package validator.testsuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import validator.MarketComprehensionDocuments;
+import validator.BusinessIdeaMaturityTest;
 import validator.ChangeKeywordWeightInvalidTest;
 import validator.ChangeKeywordWeightValidTest;
 import validator.InjectKeywordInvalidTest;
@@ -18,9 +20,12 @@ import validator.SetCategoryRelevanceNominallyTest;
 @RunWith(Suite.class)				
 @Suite.SuiteClasses({
 	//add test cases here
+	MarketComprehensionDocuments.class,
+	BusinessIdeaMaturityTest.class,
 	PopularityCalculationTest.class,
 	SetCategoryRelevanceTest.class,
 	SetCategoryRelevanceNominallyTest.class,
+	BusinessIdeaMaturityTest.class,
 	InjectKeywordInvalidTest.class,
 	InjectKeywordValidTest.class,
 	InjectKeywordWhenFullTest.class,
