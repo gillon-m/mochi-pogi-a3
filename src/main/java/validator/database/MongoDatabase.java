@@ -15,4 +15,8 @@ public interface MongoDatabase {
 	public void addAllDocuments(List<Document> documentz);
 		
 	public List<Role> getRoles();	
+	
+	public int getTotalSearchCount(String username);
+
+	public void setTotalSearchCount(String username, int updatedCount);
 }

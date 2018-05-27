@@ -87,4 +87,12 @@ public class Registry {
 		}
 		return count;
 	}	
+	
+	public int getTotalSearchCount(String username) {
+		return db.getTotalSearchCount(username);
+	}
+
+	public void setTotalSearchCount(String username, int updatedCount) {
+		db.setTotalSearchCount(username, updatedCount);
+	}
 }

@@ -14,7 +14,7 @@ public class User implements Role{
 		_password = password;
 		_isSignedIn = true;
 		_sessionCount = 0;
-		_totalSearchCount = 0;
+		_totalSearchCount = Registry.getInstance().getTotalSearchCount(username);
 	}
 
 	public String getUsername() {
@@ -61,5 +61,6 @@ public class User implements Role{
 	public void signOut() {
 		_isSignedIn = false;
 		resetSessionCount();
-	}
+		Registry.getInstance().setTotalSearchCount(_username, _totalSearchCount);
+	}	
 }

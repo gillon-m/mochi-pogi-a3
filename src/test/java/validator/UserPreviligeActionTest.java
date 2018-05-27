@@ -6,22 +6,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import validator.authentication.Registry;
 import validator.authentication.User;
+import validator.database.MongoDatabase;
 import validator.word.InputProcessor;
 import validator.word.SearchHandler;
 
 public class UserPreviligeActionTest {
+	private Registry registry;
 	SearchHandler sh;
+	private MongoDatabase db;
+	private User user;
 
 	@Before
 	public void setup(){
 		sh = new SearchHandler(Mockito.mock(InputProcessor.class));
+		db = Mockito.mock(MongoDatabase.class);
+		registry = Registry.getInstance();
+		registry.setDatabase(db);
+		Mockito.when(db.getTotalSearchCount("u1")).thenReturn(5);
+		user = Mockito.spy(new User("u1", "p1"));
 	}
 
 	//test for total count increasing when doSearch is called
 	@Test
 	public void shouldIncreaseTotalSearchCountWhenUserMakesASearchTest() {
-		User user = Mockito.spy(new User("u1", "p1"));
 		int totalBefore = user.getTotalSearchCount();
 		sh.doSearch("input", user);
 		assertEquals(totalBefore + 1, user.getTotalSearchCount());
@@ -30,7 +39,6 @@ public class UserPreviligeActionTest {
 	//check if they are in the current session
 	@Test
 	public void shouldIncreaseSessionSearchCountWhenUserMakesASearchTest() {
-		User user = Mockito.spy(new User("u1", "p1"));
 		assertEquals(0, user.getSessionCount());
 		sh.doSearch("input", user);
 		assertEquals(1, user.getSessionCount());
@@ -39,7 +47,6 @@ public class UserPreviligeActionTest {
 	//test for total count should not be cleared after signout
 	@Test
 	public void shouldNotResetTotalSearchCountWhenUserSignsOutTest() {
-		User user = Mockito.spy(new User("u1", "p1"));
 		int totalBefore = user.getTotalSearchCount();
 		sh.doSearch("input", user);
 		sh.doSearch("input", user);
@@ -49,7 +56,6 @@ public class UserPreviligeActionTest {
 	//test for session count cleared after signout
 	@Test
 	public void shouldResetSessionSearchCountWhenUserSignsOutTest() {
-		User user = Mockito.spy(new User("u1", "p1"));
 		sh.doSearch("input", user);
 		sh.doSearch("input", user);
 		user.signOut();
