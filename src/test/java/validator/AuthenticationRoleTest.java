@@ -114,8 +114,21 @@ public class AuthenticationRoleTest {
 	@Test
 	public void adminChecksNumberOfUsersTest() {
 		Administrator admin = new Administrator("username", "password");
-		//databaseRegistry.checkUserCount();
+		
+		int noUsers = admin.checkRegisteredUsers();
+
+		assertEquals(5, noUsers);
 		
 	}
 
+	@Test
+	public void usersChecksNumberOfUsersTest() {
+		User user = new User("username", "password");
+		try {
+			int noUsers = user.checkRegisteredUsers();
+			fail("Should not work");
+		} catch () {
+			
+		}
+	}
 }
