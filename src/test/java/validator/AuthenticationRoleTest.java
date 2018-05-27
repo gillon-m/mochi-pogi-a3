@@ -250,8 +250,6 @@ public class AuthenticationRoleTest {
 		} catch (AuthenticationException e) {
 			fail();
 		}
-
-
 	}
 	
 	@Test
@@ -277,6 +275,23 @@ public class AuthenticationRoleTest {
 		} catch (AuthenticationException e) {
 			fail();
 		}
-
 	}
+	
+	@Test
+	public void AdminThrowExceptionWhenSearchingForSearchCountTest() {
+		try {
+			Role admin = registry.signIn("username", "password");
+			int userTotalSearchCount = 0;
+			int userSessionCount = 0;
+			admin.signIn("username","password");
+			if (admin.signStatus()) {
+				admin.addSearchCount();
+				fail();
+			}
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Admin Cannot Search", exception.getMessage());
+		}
+	}
+	
 }
