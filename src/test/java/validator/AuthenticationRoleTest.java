@@ -2,21 +2,41 @@ package validator;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 
 import authentication.Administrator;
+import authentication.Registry;
+import authentication.Role;
 import authentication.User;
+import validator.exceptions.AuthenticationException;
+import validator.marketcomprehension.MongoDatabase;
 
 import org.junit.Test;
 
 /*Two types of roles Users and Administrators can sign up, in and off.*/
 
 public class AuthenticationRoleTest {
+	private Registry registry;
 
-
-	
+	@Before
+	public void initialise() {
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(new User("u1", "p1"));
+		roles.add(new User("u2", "p2"));
+		roles.add(new User("u3", "p3"));
+		roles.add(new User("u4", "p4"));
+		roles.add(new Administrator("a1", "a1"));
+		MongoDatabase db = Mockito.mock(MongoDatabase.class);
+		Mockito.when(db.getRoles()).thenReturn(roles);
+		
+		registry = new Registry(db);
+	}
 
 	//check if user is user and admin is admin
 	@Test
@@ -114,10 +134,12 @@ public class AuthenticationRoleTest {
 	@Test
 	public void adminChecksNumberOfUsersTest() {
 		Administrator admin = new Administrator("username", "password");
-		
-		int noUsers = admin.checkRegisteredUsers();
-
-		assertEquals(5, noUsers);
+		try {
+			int noUsers = admin.checkRegisteredUsers();
+			assertEquals(5, noUsers);
+		} catch (AuthenticationException e) {
+			fail("should not throw exception");
+		}
 		
 	}
 
@@ -127,7 +149,7 @@ public class AuthenticationRoleTest {
 		try {
 			int noUsers = user.checkRegisteredUsers();
 			fail("Should not work");
-		} catch () {
+		} catch (AuthenticationException e) {
 			
 		}
 	}

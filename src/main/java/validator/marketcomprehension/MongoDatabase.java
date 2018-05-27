@@ -1,13 +1,9 @@
 package validator.marketcomprehension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import authentication.Role;
-import validator.Word;
 import validator.marketcomprehension.Document;
-import validator.marketcomprehension.DocumentBuilder;
 
 
 public interface MongoDatabase {
@@ -20,7 +16,7 @@ public interface MongoDatabase {
 	
 	public void addRole();
 	
-	public Role getRole(String username);
+	public List<Role> getRoles();
 	
 	
 	

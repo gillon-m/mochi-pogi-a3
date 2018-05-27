@@ -1,6 +1,11 @@
 package authentication;
 
+import validator.marketcomprehension.MongoDatabase;
+
 public class Registry {
+	public Registry(MongoDatabase db) {
+		
+	}
 	
 	public void signIn(){
 		

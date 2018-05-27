@@ -81,5 +81,10 @@ public class User implements Role{
 		
 	}
 
+	public int checkRegisteredUsers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

@@ -9,5 +9,6 @@ public interface Role {
 	
 	public boolean signIn(String username, String password);
 	public boolean signOut();
+	public int checkRegisteredUsers();
 	
 }

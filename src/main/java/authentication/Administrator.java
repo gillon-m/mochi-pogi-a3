@@ -51,4 +51,10 @@ public class Administrator implements Role{
 	}
 
 
+	public int checkRegisteredUsers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }
