@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 public class BusinessIdeaMaturityTest {
 	private final static double EPSILON = 0.001;
 	@Test
-	public void testMaturity() {
+	public void shouldReturnTheMaturityWhenAClusterHasCategoriesWithDocumentsAndASetRelevance() {
 		
 		Category c1 = Mockito.mock(Category.class);
 		Mockito.when(c1.size()).thenReturn(20);
@@ -40,13 +40,13 @@ public class BusinessIdeaMaturityTest {
 		assertEquals(0.57, bi.maturity(), EPSILON);
 	}
 	@Test
-	public void testNoCategories(){
+	public void shouldReturnAMaturityOfZeroWhenThereAreNoCategoriesInTheCluster(){
 		Cluster bi = new Cluster();
 		assertEquals(0.0, bi.maturity(), EPSILON);
 	}
 	
 	@Test
-	public void testOneCategory(){
+	public void shouldReturnTheMaturityWhenThereIsOneCategoryInCluster(){
 		Cluster bi = new Cluster();
 		Category c1 = Mockito.mock(Category.class);
 		Mockito.when(c1.size()).thenReturn(20);
