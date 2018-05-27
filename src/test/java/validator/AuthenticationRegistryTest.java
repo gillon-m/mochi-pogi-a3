@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 
@@ -21,7 +20,7 @@ import org.junit.Test;
 
 /*Two types of roles Users and Administrators can sign up, in and off.*/
 
-public class AuthenticationRoleTest {
+public class AuthenticationRegistryTest {
 	private Registry registry;
 	private Throwable exception;
 
@@ -35,29 +34,12 @@ public class AuthenticationRoleTest {
 		roles.add(new Administrator("a1", "p1"));
 		MongoDatabase db = Mockito.mock(MongoDatabase.class);
 		Mockito.when(db.getRoles()).thenReturn(roles);
-		
 		registry = Registry.getInstance();
 		registry.setDatabase(db);
-	}
-
-	//check if user is user and admin is admin
-	@Test
-	public void checkIfRoleisAdministratorTest() {
-		Administrator admin = new Administrator("username", "password");
-		assertNotEquals(admin.getClass(), User.class);
-		assertEquals(admin.getClass(), Administrator.class);
-	}
-	
-	@Test
-	public void checkIfRoleisUserTest() {
-		User user = new User("username", "password");
-		assertEquals(user.getClass(), User.class);
-		assertNotEquals(user.getClass(), Administrator.class);
+		
 	}
 	
 	//check if they can successfully signin as a user or admin and are in the registry
-
-	
 	@Test
 	public void validSigninAdminWhenCorrectCredentialsAreEnteredTest() {
 		try {
@@ -119,6 +101,7 @@ public class AuthenticationRoleTest {
 	public void passwordForAdminIsIncorrectInRegistryTest() {
 		try {
 			registry.signIn("a1", "password");
+			fail();
 		} catch (AuthenticationException e) {
 			exception = e;
 			assertEquals("Password Incorrect", exception.getMessage());
@@ -263,86 +246,5 @@ public class AuthenticationRoleTest {
 	}
 	
 	
-	//check if they are in the current session
-	@Test
-	public void userChecksCurrentSessionCountTest() {
-		try {
-			Role user = registry.signIn("u1", "p1");
-			int userSessionCount = 0;
-			if (user.signStatus()) {
-				user.addSearchCount();
-				userSessionCount = user.getSessionCount();
-			}
-			assertEquals(1, userSessionCount);
-		} catch (AuthenticationException e) {
-			fail();
-		}
-	}
-	
-	@Test
-	public void userChecksTotalSearchCountOfTwoTest() {
-		try {
-			Role user = registry.signIn("u1", "p1");
-			int userTotalSearchCount = 0;
-			int userSessionCount = 0;
-			if (user.signStatus()) {
-				user.addSearchCount();
-				user.addSearchCount();
-			}
-			registry.signOff(user);
-			user = registry.signIn("u1","p1");
-			if (user.signStatus()) {
-				userTotalSearchCount = user.getTotalSearchCount();
-				userSessionCount = user.getSessionCount();
-			}
-			assertEquals(2, userTotalSearchCount);
-			assertEquals(0, userSessionCount);
-
-		} catch (AuthenticationException e) {
-			fail();
-		}
-	}
-	
-	@Test
-	public void adminThrowsExceptionWhenSearchingCountTest() {
-		try {
-			Role admin = registry.signIn("a1", "p1");
-			if (admin.signStatus()) {
-				admin.addSearchCount();
-				fail();
-			}
-		} catch (AuthenticationException e) {
-			exception = e;
-			assertEquals("Admin Cannot Search", exception.getMessage());
-		}
-	}
-	
-	@Test
-	public void adminThrowsExceptionWhenSearchingForSearchTotalCountTest() {
-		try {
-			Role admin = registry.signIn("a1", "p1");
-			if (admin.signStatus()) {
-				admin.getTotalSearchCount();
-				fail();
-			}
-		} catch (AuthenticationException e) {
-			exception = e;
-			assertEquals("Admin Cannot Search", exception.getMessage());
-		}
-	}
-	
-	@Test
-	public void adminThrowsExceptionWhenSearchingForSearchCurrentCountTest() {
-		try {
-			Role admin = registry.signIn("a1", "p1");
-			if (admin.signStatus()) {
-				admin.getSessionCount();
-				fail();
-			}
-		} catch (AuthenticationException e) {
-			exception = e;
-			assertEquals("Admin Cannot Search", exception.getMessage());
-		}
-	}
 	
 }

@@ -30,23 +30,6 @@ public class Administrator implements Role{
 		return _signStatus;
 	}
 
-
-	public void addSearchCount() {
-		throw new AuthenticationException("Admin Cannot Search");
-		
-	}
-
-
-	public int getSessionCount() {
-		throw new AuthenticationException("Admin Cannot Search");
-	}
-
-
-	public int getTotalSearchCount() {
-		throw new AuthenticationException("Admin Cannot Search");
-	}
-
-
 	public void setSignStatus() {
 		if (_signStatus) {
 			_signStatus = false;
@@ -56,6 +39,5 @@ public class Administrator implements Role{
 	
 		
 	}
-
 
 }

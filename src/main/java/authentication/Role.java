@@ -9,8 +9,5 @@ public interface Role {
 	public void setSignStatus();
 	public boolean signStatus();
 	
-	public void addSearchCount();
-	public int getSessionCount();
-	public int getTotalSearchCount();
 	
 }

@@ -40,8 +40,8 @@ public class ChangeKeywordWeightValidTest extends JUnitStory {
 		words.add(word1);
 		words.add(word2);
 		
-		Mockito.when(_processor.extractKeywords()).thenReturn(words);		
-		_words = _processor.extractKeywords();
+		Mockito.when(_processor.extractKeywords("keyword input")).thenReturn(words);		
+		_words = _processor.extractKeywords("keyword input");
 	}
 	
 	@When("User wants to change the weight of a keyword to $weight")

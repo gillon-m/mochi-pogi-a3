@@ -13,9 +13,7 @@ public interface MongoDatabase {
 	public void addDocument(Document document);
 	
 	public void addAllDocuments(List<Document> documentz);
-	
-	public void addRole();
-	
+		
 	public List<Role> getRoles();
 	
 	

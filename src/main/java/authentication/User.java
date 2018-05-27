@@ -9,6 +9,7 @@ public class User implements Role{
 	public boolean _signStatus;
 	public int _sessionCount;
 	public int _totalSearchCount;
+	public String _input;
 	
 	public User(String username, String password) {
 		_username = username;
@@ -49,6 +50,7 @@ public class User implements Role{
 		return _totalSearchCount;
 		
 	}
+
 
 	public int checkRegisteredUsers() {
 		throw new AuthenticationException("User Cannot Search");
