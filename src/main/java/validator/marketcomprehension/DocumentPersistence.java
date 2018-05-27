@@ -14,7 +14,6 @@ public class DocumentPersistence {
 	
 	public DocumentPersistence(MongoClient mongoClient,
 			String dbname) {
-		mongoDatabase = new MongoDatabase();
 		this.mongoClient = mongoClient;
 		this.mongoDatabase = this.mongoClient.getDatabase(dbname);
 		this.mongoList = this.mongoDatabase.getList();
