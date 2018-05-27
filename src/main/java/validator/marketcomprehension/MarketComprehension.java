@@ -1,6 +1,7 @@
 package validator.marketcomprehension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -79,4 +80,51 @@ public class MarketComprehension {
 		}
 		return categorySet;
 	}
+	
+	public String generateLabel(String category, List<String> keywords, List<Document> documents) {
+		List<Document> labelDocs = new ArrayList<Document>();
+		
+		for (Document d : documents) {
+			for (String s : d.getStringKeyWords()) {
+				if (s.equals(category)) {
+					labelDocs.add(d);
+				}
+			}
+		}
+		List<Category> categoryCluster = getClustersFromDocuments(labelDocs);
+		
+		
+		List<String> categoryNames = new ArrayList<String>();
+		for (Category c : categoryCluster) {
+			categoryNames.add(c.toString());
+		}
+	
+		Collections.sort(keywords, String.CASE_INSENSITIVE_ORDER);
+		Collections.sort(categoryNames, String.CASE_INSENSITIVE_ORDER);
+		
+		String label = "Searching for keyword: ";
+		
+		for (int i = 0; i < keywords.size(); i++) {
+			if (i == keywords.size()-1) {
+				label += keywords.get(i);
+			} else {
+				label += keywords.get(i) + ", ";
+			}
+		}
+		
+		label += " contains " + categoryCluster.size() + " categories. The " + category + " category contains " + category + " documents for ";
+		
+		for (int i = 0; i < categoryNames.size(); i++) {
+			if (i == categoryNames.size()-1) {
+				label += categoryNames.get(i);
+			} else {
+				label += categoryNames.get(i) + ", ";
+			}
+		}
+		
+		label += ".";
+		return label;
+	}
+	
+	
 }
