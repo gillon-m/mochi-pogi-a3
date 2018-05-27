@@ -17,14 +17,18 @@ public class DocumentProcessor {
 	 * @param mongoClient name of the mongoDB client
 	 * @param documentRegistryDBName name of the database
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) {
+	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) throws Exception {
 		List<Document> searchResultDocuments = new ArrayList<Document>();
 		DocumentPersistence documentPersistence = new DocumentPersistence(mongoClient, documentRegistryDBName);
 		for (Document d : documentPersistence.getAllDocuments()) {
 			if (d.getStringKeyWords().containsAll(keywords)) {
 				searchResultDocuments.add(d);
 			}
+		}
+		if (searchResultDocuments.size() == 0) {
+			throw new Exception("No documents were returned by your search.");
 		}
 		return searchResultDocuments;
 	}
