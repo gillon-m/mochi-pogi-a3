@@ -26,16 +26,20 @@ public class AuthenticationTest {
 
 	@Before
 	public void initialise() {
+		registry = Registry.getInstance();
+		db = Mockito.mock(MongoDatabase.class);
+		registry.setDatabase(db);
 		List<Role> roles = new ArrayList<Role>();
+		Mockito.when(registry.getTotalSearchCount("u1")).thenReturn(1);
+		Mockito.when(registry.getTotalSearchCount("u2")).thenReturn(2);
+		Mockito.when(registry.getTotalSearchCount("u3")).thenReturn(3);
+		Mockito.when(registry.getTotalSearchCount("u4")).thenReturn(4);
 		roles.add(Mockito.spy(new User("u1", "p1")));
 		roles.add(Mockito.spy(new User("u2", "p2")));
 		roles.add(Mockito.spy(new User("u3", "p3")));
 		roles.add(Mockito.spy(new User("u4", "p4")));
 		roles.add(Mockito.spy(new Administrator("a1", "p1")));
-		db = Mockito.mock(MongoDatabase.class);
 		Mockito.when(db.getRoles()).thenReturn(roles);
-		registry = Registry.getInstance();
-		registry.setDatabase(db);
 		registry.setRoles();
 	}
 	
@@ -128,11 +132,10 @@ public class AuthenticationTest {
 	@Test
 	public void shouldChangeSignStatusWhenSignOutTest() {
 		Role role = db.getRoles().get(0);
-		boolean isUserSignedIn = role.isSignedIn();
 		try {
-			assertTrue(isUserSignedIn);
+			assertTrue(role.isSignedIn());
 			registry.signOff(role.getUsername());
-			assertFalse(isUserSignedIn);
+			assertFalse(role.isSignedIn());
 		} catch (AuthenticationException e) {
 			fail();
 		}

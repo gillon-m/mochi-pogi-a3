@@ -1,6 +1,8 @@
 package validator;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,7 @@ public class UserPreviligeActionTest {
 		db = Mockito.mock(MongoDatabase.class);
 		registry = Registry.getInstance();
 		registry.setDatabase(db);
-		Mockito.when(db.getTotalSearchCount("u1")).thenReturn(5);
+		Mockito.when(registry.getTotalSearchCount("u1")).thenReturn(5);
 		user = Mockito.spy(new User("u1", "p1"));
 	}
 
@@ -51,7 +53,9 @@ public class UserPreviligeActionTest {
 		sh.doSearch("input", user);
 		sh.doSearch("input", user);
 		user.signOut();
-		assertEquals(totalBefore + 2, user.getTotalSearchCount());		
+		int totalAfter = user.getTotalSearchCount();
+		assertEquals(totalBefore + 2, totalAfter);	
+		verify(db, times(1)).setTotalSearchCount(user.getUsername(), totalAfter);
 	}
 	//test for session count cleared after signout
 	@Test
@@ -60,5 +64,5 @@ public class UserPreviligeActionTest {
 		sh.doSearch("input", user);
 		user.signOut();
 		assertEquals(0, user.getSessionCount());
-	}
+	}	
 }
