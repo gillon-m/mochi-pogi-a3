@@ -208,6 +208,33 @@ public class AuthenticationRoleTest {
 
 	}
 	
+	@Test
+	public void SignOffWithIncorrectUserTest() {
+		User user = new User("username", "p1");
+		try {
+			registry.signOff(user);
+			fail();
+
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Role Not Found", exception.getMessage());
+		}
+	}
+	
+	@Test
+	public void SignOffWithIncorrectAdminTest() {
+		Administrator admin = new Administrator("admin", "p1");
+		try {
+			registry.signOff(admin);
+			fail();
+
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Role Not Found", exception.getMessage());
+		}
+
+	}
+	
 	
 	
 	/*Administrators need to know how many users have registered.*/
