@@ -42,7 +42,6 @@ public class MarketComprehensionTest {
 		List<Document> documents = createDocumentMocks();
 		Mockito.doReturn(mongoDatabase).when(mongoClient).getDatabase(documentRegistryDBName);
 		Mockito.doReturn(documents).when(mongoDatabase).getList();
-
 	}
 
 
@@ -99,7 +98,7 @@ public class MarketComprehensionTest {
 		documents.add(parrotDaycareDocument);
 		return documents;
 	}
-
+  
 	private List<Document> getDocumentsOnKeywords(List<String> words) {
 		List<String> keywords = new ArrayList<String>();
 		for (String s : words) {
