@@ -32,11 +32,12 @@ public class AuthenticationRoleTest {
 		roles.add(new User("u2", "p2"));
 		roles.add(new User("u3", "p3"));
 		roles.add(new User("u4", "p4"));
-		roles.add(new Administrator("a1", "a1"));
+		roles.add(new Administrator("a1", "p1"));
 		MongoDatabase db = Mockito.mock(MongoDatabase.class);
 		Mockito.when(db.getRoles()).thenReturn(roles);
 		
-		registry = new Registry(db);
+		registry = Registry.getInstance();
+		registry.setDatabase(db);
 	}
 
 	//check if user is user and admin is admin
@@ -110,7 +111,7 @@ public class AuthenticationRoleTest {
 			fail();
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("Role Password Incorrect", exception.getMessage());
+			assertEquals("Password Incorrect", exception.getMessage());
 		}
 	}
 	
@@ -121,7 +122,7 @@ public class AuthenticationRoleTest {
 			registry.signIn("username", "password");
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("Role Password Incorrect", exception.getMessage());
+			assertEquals("Password Incorrect", exception.getMessage());
 		}
 		
 	}
@@ -213,7 +214,7 @@ public class AuthenticationRoleTest {
 	/*Administrators need to know how many users have registered.*/
 	@Test
 	public void adminChecksNumberOfUsersTest() {
-		Administrator admin = new Administrator("username", "password");
+		Administrator admin = new Administrator("a1", "p1");
 		try {
 			int noUsers = admin.checkRegisteredUsers();
 			assertEquals(5, noUsers);
@@ -231,7 +232,7 @@ public class AuthenticationRoleTest {
 			fail("Should not work");
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("User Cannot Check", exception.getMessage());
+			assertEquals("User Cannot Search", exception.getMessage());
 		}
 	}
 	
@@ -240,7 +241,7 @@ public class AuthenticationRoleTest {
 	@Test
 	public void userCurrentSessionCountTest() {
 		try {
-			Role user = registry.signIn("username", "password");
+			Role user = registry.signIn("u1", "p1");
 			int userSessionCount = 0;
 			if (user.signStatus()) {
 				user.addSearchCount();
@@ -255,7 +256,7 @@ public class AuthenticationRoleTest {
 	@Test
 	public void userTotalSearchCountOfTwoTest() {
 		try {
-			Role user = registry.signIn("username", "password");
+			Role user = registry.signIn("u1", "p1");
 			int userTotalSearchCount = 0;
 			int userSessionCount = 0;
 			if (user.signStatus()) {
@@ -263,7 +264,7 @@ public class AuthenticationRoleTest {
 				user.addSearchCount();
 			}
 			registry.signOff(user);
-			registry.signIn("username","password");
+			user = registry.signIn("u1","p1");
 			if (user.signStatus()) {
 				userTotalSearchCount = user.getTotalSearchCount();
 				userSessionCount = user.getSessionCount();
@@ -279,8 +280,7 @@ public class AuthenticationRoleTest {
 	@Test
 	public void AdminThrowExceptionWhenSearchingForSearchCountTest() {
 		try {
-			Role admin = registry.signIn("username", "password");
-			registry.signIn("username","password");
+			Role admin = registry.signIn("a1", "p1");
 			if (admin.signStatus()) {
 				admin.addSearchCount();
 				fail();

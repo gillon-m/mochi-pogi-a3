@@ -1,5 +1,7 @@
 package authentication;
 
+import validator.exceptions.AuthenticationException;
+
 public class Administrator implements Role{
 	public String _username;
 	public String _password;
@@ -20,8 +22,8 @@ public class Administrator implements Role{
 	}
 
 	public int checkRegisteredUsers() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Registry.getInstance().getUserSize();
+		
 	}
 	
 	public boolean signStatus() {
@@ -30,20 +32,29 @@ public class Administrator implements Role{
 
 
 	public void addSearchCount() {
-		// TODO Auto-generated method stub
+		throw new AuthenticationException("Admin Cannot Search");
 		
 	}
 
 
 	public int getSessionCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new AuthenticationException("Admin Cannot Search");
 	}
 
 
 	public int getTotalSearchCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new AuthenticationException("Admin Cannot Search");
+	}
+
+
+	public void setSignStatus() {
+		if (_signStatus) {
+			_signStatus = false;
+		} else {
+			_signStatus = true;
+		}
+	
+		
 	}
 
 

@@ -1,5 +1,7 @@
 package authentication;
 
+import validator.exceptions.AuthenticationException;
+
 public class User implements Role{
 
 	public String _username;
@@ -49,8 +51,16 @@ public class User implements Role{
 	}
 
 	public int checkRegisteredUsers() {
-		
-		return 0;
+		throw new AuthenticationException("User Cannot Search");
+	}
+
+	public void setSignStatus() {
+		if (_signStatus) {
+			resetSessionCount();
+			_signStatus = false;
+		} else {
+			_signStatus = true;
+		}
 	}
 
 
