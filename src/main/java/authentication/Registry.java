@@ -9,16 +9,22 @@ public class Registry {
 		_db = db;
 	}
 	
-	public void signIn(){
+	public Role signIn(String username, String password){
+		return null;
 		
 	}
 	
-	public void signOff(){
+	public void signOff(Role role){
 		
 	}
 	
 	public void signUp(){
 		
+	}
+
+	public Role signUp(String username, String password, Class RoleTypeClass) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

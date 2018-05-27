@@ -231,7 +231,8 @@ public class AuthenticationRoleTest {
 			int noUsers = user.checkRegisteredUsers();
 			fail("Should not work");
 		} catch (AuthenticationException e) {
-			
+			exception = e;
+			assertEquals("User Cannot Check", exception.getMessage());
 		}
 	}
 	
