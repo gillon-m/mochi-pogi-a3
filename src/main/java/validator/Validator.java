@@ -39,6 +39,7 @@ public class Validator {
 		initialiseMockMethods(db,client,ip);
 		Registry registry = Registry.getInstance();
 		registry.setDatabase(db);
+		registry.setRoles();
 		BufferedReader br = null;
 		try{
 			br = new BufferedReader(new InputStreamReader(System.in));
@@ -50,12 +51,13 @@ public class Validator {
 			String username = br.readLine();
 			System.out.println("Password: ");
 			String password = br.readLine();
-			Role role = registry.signIn(username, password);
+			User user = (User) registry.signIn(username, password);
+			System.out.println(user);
 			System.out.println("Enter a search query: ");
 			SearchHandler sh = new SearchHandler(ip);
 			System.out.println("Press enter");
 			br.readLine();
-			Set<Word> keyWords = sh.doSearch("k", (User) role);
+			Set<Word> keyWords = sh.doSearch("k", user);
 			System.out.println("Keywords from search query: I want to start a business with cats and dogs");
 			for(Word word: keyWords){
 				System.out.println(word.getName());
@@ -146,12 +148,20 @@ public class Validator {
 		Mockito.doReturn(db).when(client).getDatabase("DocumentRegistry");
 		Mockito.doReturn(documents).when(db).getList();
 		
+		Registry registry = Registry.getInstance();
+		registry.setDatabase(db);
+		registry.setRoles();
+		Mockito.when(db.getTotalSearchCount("u1")).thenReturn(1);
+		Mockito.when(db.getTotalSearchCount("u2")).thenReturn(2);
+		Mockito.when(db.getTotalSearchCount("u3")).thenReturn(3);
+		Mockito.when(db.getTotalSearchCount("u4")).thenReturn(4);
+
 		List<Role> roles = new ArrayList<Role>();
-		roles.add(new User("u1", "p1"));
-		roles.add(new User("u2", "p2"));
-		roles.add(new User("u3", "p3"));
-		roles.add(new User("u4", "p4"));
-		roles.add(new Administrator("a1", "p1"));
+		roles.add(Mockito.spy(new User("u1", "p1")));
+		roles.add(Mockito.spy(new User("u2", "p2")));
+		roles.add(Mockito.spy(new User("u3", "p3")));
+		roles.add(Mockito.spy(new User("u4", "p4")));
+		roles.add(Mockito.spy(new Administrator("a1", "p1")));
 		Mockito.when(db.getRoles()).thenReturn(roles);
 
 		Word word1 = Mockito.spy(new Word("Training", 10));
