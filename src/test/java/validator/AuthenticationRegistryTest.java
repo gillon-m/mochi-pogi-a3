@@ -8,13 +8,12 @@ import java.util.List;
 import org.junit.Before;
 import org.mockito.Mockito;
 
-
-import authentication.Administrator;
-import authentication.Registry;
-import authentication.Role;
-import authentication.User;
+import validator.authentication.Administrator;
+import validator.authentication.Registry;
+import validator.authentication.Role;
+import validator.authentication.User;
+import validator.database.MongoDatabase;
 import validator.exceptions.AuthenticationException;
-import validator.marketcomprehension.MongoDatabase;
 
 import org.junit.Test;
 

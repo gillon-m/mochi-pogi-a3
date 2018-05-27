@@ -1,4 +1,4 @@
-package authentication;
+package validator.authentication;
 
 public interface Role {
 	public String getUsername();

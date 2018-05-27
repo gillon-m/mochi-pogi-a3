@@ -8,6 +8,9 @@ import java.util.Set;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import validator.cluster.Category;
+import validator.cluster.Cluster;
+
 public class BusinessIdeaMaturityTest {
 	private final static double EPSILON = 0.001;
 	@Test

@@ -1,10 +1,9 @@
-package validator.marketcomprehension;
+package validator.cluster;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import validator.Category;
-import validator.Word;
+import validator.word.Word;
 
 public class Document {
 	private String title;

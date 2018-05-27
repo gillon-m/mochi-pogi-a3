@@ -8,8 +8,8 @@ import java.util.Set;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import validator.Category;
-import validator.Cluster;
+import validator.cluster.Category;
+import validator.cluster.Cluster;
 
 public class PopularityCalculationTest {
 	@Test

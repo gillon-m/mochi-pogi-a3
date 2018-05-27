@@ -1,4 +1,4 @@
-package validator.marketcomprehension;
+package validator.cluster;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,10 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import validator.Category;
-import validator.Word;
+import validator.database.DocumentPersistence;
+import validator.database.MongoClient;
+import validator.word.Word;
 
-public class MarketComprehension {	
+public class DocumentProcessor {	
 	/**
 	 * Gets documents from the database if the document contains keyword param keyword.
 	 * @param keywords the keyword to identify documents

@@ -1,9 +1,9 @@
-package validator.marketcomprehension;
+package validator.database;
 
 import java.util.List;
 
-import authentication.Role;
-import validator.marketcomprehension.Document;
+import validator.authentication.Role;
+import validator.cluster.Document;
 
 
 public interface MongoDatabase {

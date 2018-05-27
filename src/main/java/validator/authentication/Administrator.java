@@ -1,4 +1,4 @@
-package authentication;
+package validator.authentication;
 
 import validator.exceptions.AuthenticationException;
 

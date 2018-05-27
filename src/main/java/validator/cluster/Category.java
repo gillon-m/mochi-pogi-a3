@@ -1,12 +1,9 @@
-package validator;
+package validator.cluster;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import validator.marketcomprehension.Document;
-import validator.marketcomprehension.MarketComprehension;
 import java.util.HashSet;
 import java.util.Set;
 

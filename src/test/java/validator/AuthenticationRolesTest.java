@@ -6,9 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import authentication.Administrator;
-import authentication.User;
+import validator.authentication.Administrator;
+import validator.authentication.User;
 import validator.exceptions.AuthenticationException;
+import validator.word.InputProcessor;
+import validator.word.SearchHandler;
 
 public class AuthenticationRolesTest {
 	SearchHandler sh;

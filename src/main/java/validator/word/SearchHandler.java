@@ -1,8 +1,8 @@
-package validator;
+package validator.word;
 
 import java.util.Set;
 
-import authentication.User;
+import validator.authentication.User;
 
 public class SearchHandler {
 	private InputProcessor _ip;

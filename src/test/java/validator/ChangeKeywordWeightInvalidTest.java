@@ -21,6 +21,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import validator.exceptions.KeywordException;
+import validator.word.InputProcessor;
+import validator.word.KeywordsEditor;
+import validator.word.Word;
 
 public class ChangeKeywordWeightInvalidTest extends JUnitStory {
 	private InputProcessor _processor;

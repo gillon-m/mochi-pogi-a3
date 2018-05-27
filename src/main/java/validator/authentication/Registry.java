@@ -1,9 +1,9 @@
-package authentication;
+package validator.authentication;
 
 import java.util.List;
 
+import validator.database.MongoDatabase;
 import validator.exceptions.AuthenticationException;
-import validator.marketcomprehension.MongoDatabase;
 
 public class Registry {
 	private static Registry instance;

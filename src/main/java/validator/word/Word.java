@@ -1,4 +1,4 @@
-package validator;
+package validator.word;
 
 public class Word {
 	private String _name;

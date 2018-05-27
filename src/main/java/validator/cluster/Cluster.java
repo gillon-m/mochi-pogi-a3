@@ -1,10 +1,8 @@
-package validator;
+package validator.cluster;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import validator.Category;
 /**
  * A cluster of categories
  * @author Gillon Manalastas

@@ -17,6 +17,9 @@ import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
+import validator.cluster.Category;
+import validator.cluster.Cluster;
+
 public class SetCategoryRelevanceTest extends JUnitStory{
 	private final static double EPSILON = 0.001;
 	Category _c1;

@@ -1,4 +1,4 @@
-package validator.marketcomprehension;
+package validator.database;
 
 public interface MongoClient {
 
