@@ -13,7 +13,7 @@ import validator.Cluster;
 
 public class PopularityCalculationTest {
 	@Test
-	public void testPopularityCalculation() {
+	public void testPopularityCalculationOfThreeCategories() {
 		Category c1 = Mockito.mock(Category.class);
 		Category c2 = Mockito.mock(Category.class);
 		Category c3 = Mockito.mock(Category.class);
