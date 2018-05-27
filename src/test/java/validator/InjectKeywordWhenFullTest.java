@@ -44,8 +44,8 @@ public class InjectKeywordWhenFullTest extends JUnitStory {
 		words.add(word4);
 		words.add(word5);
 		
-		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
-		_words = _processor.extractKeywords();
+		Mockito.when(_processor.extractKeywords("keyword input")).thenReturn(words);	
+		_words = _processor.extractKeywords("keyword input");
 	}
 
 	@When("User injects a word $word with a weight of $weight")

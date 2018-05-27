@@ -34,8 +34,8 @@ public class RemoveKeywordWhenEmptyTest extends JUnitStory {
 		_processor = Mockito.mock(InputProcessor.class);
 		Set<Word> words = new HashSet<Word>();
 		
-		Mockito.when(_processor.extractKeywords()).thenReturn(words);	
-		_words = _processor.extractKeywords();
+		Mockito.when(_processor.extractKeywords("keyword input")).thenReturn(words);	
+		_words = _processor.extractKeywords("keyword input");
 	}
 
 	@When("User selects a word $word to remove from the list")
