@@ -1,46 +1,53 @@
 package authentication;
 
 public class Administrator implements Role{
+	public String _username;
+	public String _password;
+	private boolean _signStatus;
 
 	public Administrator(String username, String password) {
-		// TODO Auto-generated constructor stub
+		_username = username;
+		_password = password;
 	}
 
-	public String getRoleType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return _username;
 	}
 
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return _password;
 	}
 
 	public void setUsername(String username) {
-		// TODO Auto-generated method stub
+		_username = username;
 		
 	}
 
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
+		_password = password;
 		
 	}
 
-	public boolean signIn() {
+	public boolean signIn(String username, String password) {
+		if (_username == username && password == _password) {
+			if (_signStatus) {
+				return false;
+			} else {
+				_signStatus = true;
+				return true;
+			}
+		}
 		return false;
-		// TODO Auto-generated method stub
-		
 	}
 
 	public boolean signOut() {
-		return false;
-		// TODO Auto-generated method stub
-		
+		if (!_signStatus) {
+			return false;
+		} else {
+			_signStatus = false;
+			return true;
+		}
 	}
 
 

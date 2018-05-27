@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import authentication.Registry;
 import validator.Word;
 import validator.marketcomprehension.Document;
 import validator.marketcomprehension.DocumentBuilder;
