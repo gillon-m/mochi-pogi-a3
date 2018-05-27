@@ -88,7 +88,7 @@ public class AuthenticationRoleTest {
 			fail();
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("User Not Found", exception.getMessage());
+			assertEquals("Role Not Found", exception.getMessage());
 		}
 	}
 	
@@ -99,7 +99,30 @@ public class AuthenticationRoleTest {
 			registry.signIn("username", "password");
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("Admin Not Found", exception.getMessage());
+			assertEquals("Role Not Found", exception.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void passwordForUserIsIncorrectInRegistryTest() {
+		try {
+			registry.signIn("username", "password");
+			fail();
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Role Password Incorrect", exception.getMessage());
+		}
+	}
+	
+	@Test
+	public void passwordForAdminIsIncorrectInRegistryTest() {
+		Administrator admin = new Administrator("username", "password");
+		try {
+			registry.signIn("username", "password");
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Role Password Incorrect", exception.getMessage());
 		}
 		
 	}
