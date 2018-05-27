@@ -277,11 +277,39 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void AdminThrowExceptionWhenSearchingForSearchCountTest() {
+	public void AdminThrowsExceptionWhenSearchingCountTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			if (admin.signStatus()) {
 				admin.addSearchCount();
+				fail();
+			}
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Admin Cannot Search", exception.getMessage());
+		}
+	}
+	
+	@Test
+	public void AdminThrowsExceptionWhenSearchingForSearchTotalCountTest() {
+		try {
+			Role admin = registry.signIn("a1", "p1");
+			if (admin.signStatus()) {
+				admin.getTotalSearchCount();
+				fail();
+			}
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Admin Cannot Search", exception.getMessage());
+		}
+	}
+	
+	@Test
+	public void AdminThrowsExceptionWhenSearchingForSearchCurrentCountTest() {
+		try {
+			Role admin = registry.signIn("a1", "p1");
+			if (admin.signStatus()) {
+				admin.getSessionCount();
 				fail();
 			}
 		} catch (AuthenticationException e) {
