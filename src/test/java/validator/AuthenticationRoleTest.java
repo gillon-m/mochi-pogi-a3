@@ -63,8 +63,8 @@ public class AuthenticationRoleTest {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			assertTrue(admin instanceof Administrator);
-			assertEquals("username", admin.getUsername());
-			assertEquals("password", admin.getPassword());
+			assertEquals("a1", admin.getUsername());
+			assertEquals("p1", admin.getPassword());
 		} catch (AuthenticationException e) {
 			fail();
 		}
@@ -75,8 +75,8 @@ public class AuthenticationRoleTest {
 		try {
 			Role user = registry.signIn("u1", "p1");
 			assertTrue(user instanceof User);
-			assertEquals("username", user.getUsername());
-			assertEquals("password", user.getPassword());
+			assertEquals("u1", user.getUsername());
+			assertEquals("p1", user.getPassword());
 		} catch (AuthenticationException e) {
 			fail();
 		}
@@ -117,9 +117,8 @@ public class AuthenticationRoleTest {
 	
 	@Test
 	public void passwordForAdminIsIncorrectInRegistryTest() {
-		Administrator admin = new Administrator("a1", "password");
 		try {
-			registry.signIn("username", "password");
+			registry.signIn("a1", "password");
 		} catch (AuthenticationException e) {
 			exception = e;
 			assertEquals("Password Incorrect", exception.getMessage());
@@ -132,7 +131,7 @@ public class AuthenticationRoleTest {
 	@Test
 	public void SignUpUserWhenNewCredentialsAreEnteredTest() {
 		try {
-			Role user = registry.signUp("username", "password", Administrator.class);
+			Role user = registry.signUp("username", "password", User.class);
 			assertTrue(user instanceof User);
 			assertEquals("username", user.getUsername());
 			assertEquals("password", user.getPassword());
@@ -163,7 +162,7 @@ public class AuthenticationRoleTest {
 
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("Username already Taken", exception.getMessage());
+			assertEquals("Username Already Exists", exception.getMessage());
 		}
 	}
 	
@@ -175,7 +174,7 @@ public class AuthenticationRoleTest {
 
 		} catch (AuthenticationException e) {
 			exception = e;
-			assertEquals("Username already Taken", exception.getMessage());
+			assertEquals("Username Already Exists", exception.getMessage());
 		}
 	}
 
@@ -217,7 +216,7 @@ public class AuthenticationRoleTest {
 		Administrator admin = new Administrator("a1", "p1");
 		try {
 			int noUsers = admin.checkRegisteredUsers();
-			assertEquals(5, noUsers);
+			assertEquals(4, noUsers);
 		} catch (AuthenticationException e) {
 			fail("should not throw exception");
 		}

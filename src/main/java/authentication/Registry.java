@@ -7,41 +7,55 @@ import validator.marketcomprehension.MongoDatabase;
 
 public class Registry {
 	private static Registry instance;
-	private MongoDatabase _db;
 	private List<Role> rolesList;
 
 	private Registry() {
 	}
 
 	public Role signIn(String username, String password){
+		boolean passwordIncorrect = false;
+		boolean roleNotFound = false;
 		for (int i= 0; i< rolesList.size(); i++) {
 			if (rolesList.get(i).getUsername() == username) {
 				if (rolesList.get(i).getPassword() == password) {
 					rolesList.get(i).setSignStatus();
 					return rolesList.get(i);
 				} else {
-					throw new AuthenticationException("Password Incorrect");
+					passwordIncorrect = true;
+					break;
 				}
 			} else {
-				throw new AuthenticationException("Role Not Found");
+				roleNotFound = true;
 			}
+		}
+		if (passwordIncorrect) {
+			throw new AuthenticationException("Password Incorrect");
+		}
+		if (roleNotFound) {
+			throw new AuthenticationException("Role Not Found");
 		}
 		return null;
 
 	}
 
 	public void signOff(Role role){
+		boolean roleNotFound = false;
 		for (int i= 0; i< rolesList.size(); i++) {
 			if (rolesList.get(i).getUsername() == role.getUsername()) {
 				if (rolesList.get(i).getPassword() == role.getPassword()) {
 					rolesList.get(i).setSignStatus();
 					//has successfully signed off
+					roleNotFound = false;
+					break;
 				} else {
-					throw new AuthenticationException("Role Not Found");
+					roleNotFound = true;
 				}
 			} else {
-				throw new AuthenticationException("Role Not Found");
+				roleNotFound = true;
 			}
+		}
+		if (roleNotFound) {
+			throw new AuthenticationException("Role Not Found");
 		}
 	}
 
@@ -70,7 +84,6 @@ public class Registry {
 		return instance;
 	}
 	public void setDatabase(MongoDatabase db){
-		_db = db;
 		rolesList=db.getRoles();
 	}
 	
