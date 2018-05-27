@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 import validator.MarketComprehensionTest;
 import validator.AuthenticationRegistryTest;
+import validator.AuthenticationRolesTest;
 import validator.BusinessIdeaMaturityTest;
 import validator.ChangeKeywordWeightInvalidTest;
 import validator.ChangeKeywordWeightValidTest;
@@ -22,6 +23,7 @@ import validator.SetCategoryRelevanceNominallyTest;
 @Suite.SuiteClasses({
 	//add test cases here
 	AuthenticationRegistryTest.class,
+	AuthenticationRolesTest.class,
 	MarketComprehensionTest.class,
 	BusinessIdeaMaturityTest.class,
 	PopularityCalculationTest.class,
