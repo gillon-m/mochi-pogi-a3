@@ -14,7 +14,7 @@ import validator.database.MongoDatabase;
 import validator.word.InputProcessor;
 import validator.word.SearchHandler;
 
-public class UserPreviligeActionTest {
+public class UserPrevilegeActionTest {
 	private Registry registry;
 	SearchHandler sh;
 	private MongoDatabase db;
