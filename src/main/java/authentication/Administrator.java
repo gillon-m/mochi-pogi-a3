@@ -55,6 +55,10 @@ public class Administrator implements Role{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public boolean signStatus() {
+		return _signStatus;
+	}
 
 
 }

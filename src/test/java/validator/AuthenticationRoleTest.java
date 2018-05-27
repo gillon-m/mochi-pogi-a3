@@ -23,6 +23,7 @@ import org.junit.Test;
 
 public class AuthenticationRoleTest {
 	private Registry registry;
+	private Throwable exception;
 
 	@Before
 	public void initialise() {
@@ -54,59 +55,81 @@ public class AuthenticationRoleTest {
 	}
 	
 	//check if they can successfully signin as a user or admin and are in the registry
+
+	
 	@Test
-	public void UserHasSucessfullySignedInTest() {
-		User user = new User("username", "password");
-		assertTrue(user.signIn("username", "password"));
-		
+	public void validSigninAdminTest() {
+		try {
+			Role admin = registry.signIn("username", "password");
+			assertTrue(admin instanceof Administrator);
+			assertEquals("username", admin.getUsername());
+			assertEquals("password", admin.getPassword());
+		} catch (AuthenticationException e) {
+			fail();
+		}
 	}
 	
 	@Test
-	public void AdminHasSucessfullySignedInTest() {
-		Administrator admin = new Administrator("admin", "password");
-		assertTrue(admin.signIn("admin", "password"));
-	}
-	
-	@Test
-	public void InvalidSigninAdminTest() {
-		Administrator admin = new Administrator("admin", "password");
-		assertFalse(admin.signIn("notAdmin", "password"));
-		assertFalse(admin.signIn("admin", "notP"));
-	}
-	
-	@Test
-	public void InvalidSigninUserTest() {
-		User user = new User("username", "password");
-		assertFalse(user.signIn("notUser", "password"));
-		assertFalse(user.signIn("username", "notP"));
+	public void validSigninUserTest() {
+		try {
+			Role user = registry.signIn("username", "password");
+			assertTrue(user instanceof User);
+			assertEquals("username", user.getUsername());
+			assertEquals("password", user.getPassword());
+		} catch (AuthenticationException e) {
+			fail();
+		}
 	}
 	
 	@Test
 	public void userNotInRegistryTest() {
-		User user = new User("username", "password");
-		//databaseRegistry.checkforUser(user);
+		try {
+			registry.signIn("username", "password");
+			fail();
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("User Not Found", exception.getMessage());
+		}
 	}
 	
 	@Test
 	public void adminNotInRegistryTest() {
 		Administrator admin = new Administrator("username", "password");
-		//databaseRegistry.checkforAdmin(admin);
+		try {
+			registry.signIn("username", "password");
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Admin Not Found", exception.getMessage());
+		}
+		
 	}
 	
 	//check if the user and/or admin can signup
 	
 	@Test
-	public void SignUpUserTest() {
-		User user = new User("username", "password");
-		//databaseRegistry.addUser(user);
-		//assertEquals(user, databaseRegistry.getUser(user));
+	public void SignUpUserWhenCorrectCredentialsArePlacedTest() {
+		try {
+			Role user = registry.signUp("username", "password", Administrator.class);
+			assertTrue(user instanceof User);
+			assertEquals("username", user.getUsername());
+			assertEquals("password", user.getPassword());
+
+		} catch (AuthenticationException e) {
+			fail();
+		}
 	}
 	
 	@Test
-	public void SignUpAdminTest() {
-		Administrator admin = new Administrator("username", "password");
-		//databaseRegistry.addAdmin(admin);
-		//assertEquals(admin, databaseRegistry.getAdmin(admin));
+	public void SignUpAdminWhenCorrectCredentialsArePlacedTest() {
+		try {
+			Role admin = registry.signUp("username", "password", Administrator.class);
+			assertTrue(admin instanceof Administrator); 
+			assertEquals("username", admin.getUsername());
+			assertEquals("password", admin.getPassword());
+
+		} catch (AuthenticationException e) {
+			fail();
+		}
 	}
 
 	
@@ -115,16 +138,27 @@ public class AuthenticationRoleTest {
 	@Test
 	public void SignOffUserTest() {
 		User user = new User("username", "password");
-		//databaseRegistry.getUser(user);
-		//assertTrue(user.signOut());
+		try {
+			registry.signOff(user);
+			assertEquals("username", user.getUsername());
+			assertEquals("password", user.getPassword());
 
+		} catch (AuthenticationException e) {
+			fail();
+		}
 	}
 	
 	@Test
 	public void SignOffAdminTest() {
 		Administrator admin = new Administrator("username", "password");
-		//databaseRegistry.getAdmin(admin);
-		//assertTrue(admin.signOut());
+		try {
+			registry.signOff(admin);
+			assertEquals("username", admin.getUsername());
+			assertEquals("password", admin.getPassword());
+
+		} catch (AuthenticationException e) {
+			fail();
+		}
 
 	}
 	
@@ -152,5 +186,49 @@ public class AuthenticationRoleTest {
 		} catch (AuthenticationException e) {
 			
 		}
+	}
+	
+	
+	//check if they are in the current session
+	@Test
+	public void userCurrentSessionCountTest() {
+		try {
+			Role user = registry.signIn("username", "password");
+			int userSessionCount = 0;
+			if (user.signStatus()) {
+				user.addSearchCount();
+				userSessionCount = user.getSessionCount();
+			}
+			assertEquals(1, userSessionCount);
+		} catch (AuthenticationException e) {
+			fail();
+		}
+
+
+	}
+	
+	@Test
+	public void userTotalSearchCountOfTwoTest() {
+		try {
+			int userTotalSearchCount = 0;
+			int userSessionCount = 0;
+			user.signIn("username","password");
+			if (user.signStatus()) {
+				user.addSearchCount();
+				user.addSearchCount();
+			}
+			user.signOut();
+			user.signIn("username","password");
+			if (user.signStatus()) {
+				userTotalSearchCount = user.getTotalSearchCount();
+				userSessionCount = user.getSessionCount();
+			}
+			assertEquals(2, userTotalSearchCount);
+			assertEquals(0, userSessionCount);
+
+		} catch (AuthenticationException e) {
+			fail();
+		}
+
 	}
 }
