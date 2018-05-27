@@ -11,5 +11,8 @@ public interface Role {
 	public boolean signOut();
 	public int checkRegisteredUsers();
 	public boolean signStatus();
+	public void addSearchCount();
+	public int getSessionCount();
+	public int getTotalSearchCount();
 	
 }

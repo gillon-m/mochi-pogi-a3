@@ -61,4 +61,22 @@ public class Administrator implements Role{
 	}
 
 
+	public void addSearchCount() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public int getSessionCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public int getTotalSearchCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }

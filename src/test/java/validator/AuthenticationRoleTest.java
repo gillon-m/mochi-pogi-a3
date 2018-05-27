@@ -210,6 +210,7 @@ public class AuthenticationRoleTest {
 	@Test
 	public void userTotalSearchCountOfTwoTest() {
 		try {
+			Role user = registry.signIn("username", "password");
 			int userTotalSearchCount = 0;
 			int userSessionCount = 0;
 			user.signIn("username","password");
