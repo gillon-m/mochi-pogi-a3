@@ -19,14 +19,14 @@ public class AuthenticationRolesTest {
 	}
 	//check if user is user and admin is admin
 	@Test
-	public void checkIfRoleisAdministratorTest() {
+	public void shouldReturnAdminRoleWhenAdminIsCreatedTest() {
 		Administrator admin = new Administrator("username", "password");
 		assertNotEquals(admin.getClass(), User.class);
 		assertEquals(admin.getClass(), Administrator.class);
 	}
 
 	@Test
-	public void checkIfRoleisUserTest() {
+	public void shouldReturnUserRoleWhenUserIsCreatedTest() {
 		User user = new User("username", "password");
 		assertEquals(user.getClass(), User.class);
 		assertNotEquals(user.getClass(), Administrator.class);
@@ -34,7 +34,7 @@ public class AuthenticationRolesTest {
 
 	//check if they are in the current session
 	@Test
-	public void userChecksCurrentSessionCountTest() {
+	public void shouldReturnOneWhenUserMakesASearchAndChecksCurrentSessionCountTest() {
 			User user = new User("u1", "p1");
 			user.setSignStatus();
 			int userSessionCount = 0;
@@ -47,7 +47,7 @@ public class AuthenticationRolesTest {
 	}
 
 	@Test
-	public void userChecksTotalSearchCountOfTwoTest() {
+	public void shouldReturnTwoWhenUserMakesTwoSearchesAndSignsOffAndInAndChecksTotalSearchCountTest() {
 			User user = new User("u1", "p1");
 			user.setSignStatus();
 			int userTotalSearchCount = 0;

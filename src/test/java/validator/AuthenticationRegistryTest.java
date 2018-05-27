@@ -41,7 +41,7 @@ public class AuthenticationRegistryTest {
 	
 	//check if they can successfully signin as a user or admin and are in the registry
 	@Test
-	public void validSigninAdminWhenCorrectCredentialsAreEnteredTest() {
+	public void shouldSigninValidAdminWhenGivenCorrectCredentialsTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			assertTrue(admin instanceof Administrator);
@@ -53,7 +53,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void validSigninUserWhenCorrectCredentialsAreEnteredTest() {
+	public void shouldSigninValidUserWhenGivenCorrectCredentialsTest() {
 		try {
 			Role user = registry.signIn("u2", "p2");
 			assertTrue(user instanceof User);
@@ -65,7 +65,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void checkWhenUserNotInRegistryTest() {
+	public void shouldReturnExceptionWhenUserIsNotInRegistryTest() {
 		try {
 			registry.signIn("username", "password");
 			fail();
@@ -76,7 +76,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void checkWhenadminNotInRegistryTest() {
+	public void shouldReturnExceptionWhenAdminIsNotInRegistryTest() {
 		try {
 			registry.signIn("username", "password");
 		} catch (AuthenticationException e) {
@@ -87,7 +87,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void passwordForUserIsIncorrectInRegistryTest() {
+	public void shouldReturnExceptionWhenPasswordForUserIsIncorrectInRegistryTest() {
 		try {
 			registry.signIn("u1", "password");
 			fail();
@@ -98,7 +98,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void passwordForAdminIsIncorrectInRegistryTest() {
+	public void shouldReturnExceptionWhenPasswordForAdminIsIncorrectInRegistryTest() {
 		try {
 			registry.signIn("a1", "password");
 			fail();
@@ -112,7 +112,7 @@ public class AuthenticationRegistryTest {
 	//check if the user and/or admin can signup
 	
 	@Test
-	public void signUpUserWhenNewCredentialsAreEnteredTest() {
+	public void shouldSuccessfullysSignUpUserWhenNewCredentialsAreEnteredTest() {
 		try {
 			Role user = registry.signUp("username", "password", User.class);
 			assertTrue(user instanceof User);
@@ -125,7 +125,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signUpAdminWhenNewCredentialsAreEnteredTest() {
+	public void shouldSuccessfullysSignUpAdminWhenNewCredentialsAreEnteredTest() {
 		try {
 			Role admin = registry.signUp("admin", "password", Administrator.class);
 			assertTrue(admin instanceof Administrator); 
@@ -138,7 +138,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signUpUserAlreadyExistsInRegistryTest() {
+	public void shouldReturnExceptionWhenUserAlreadyExistsInRegistryTest() {
 		try {
 			Role user = registry.signUp("u1", "p1", User.class);
 			fail();
@@ -150,7 +150,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signUpAdminAlreadyExistsInRegistryTest() {
+	public void shouldReturnExceptionWhenAdminAlreadyExistsInRegistryTest() {
 		try {
 			Role admin = registry.signUp("a1", "p1", Administrator.class);
 			fail();
@@ -165,7 +165,7 @@ public class AuthenticationRegistryTest {
 	//check if the user and admin can sign off
 	
 	@Test
-	public void signOffUserTest() {
+	public void shouldSuccessfullySignOffUserWhenCredentialsAreCorrectTest() {
 		User user = new User("u1", "p1");
 		try {
 			registry.signOff(user);
@@ -178,7 +178,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signOffAdminTest() {
+	public void shouldSuccessfullySignOffAdminWhenCredentialsAreCorrectTest() {
 		Administrator admin = new Administrator("a1", "p1");
 		try {
 			registry.signOff(admin);
@@ -192,7 +192,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signOffWithIncorrectUserTest() {
+	public void shouldReturnExceptionWhenUserSignsOffWithIncorrectCredentialsTest() {
 		User user = new User("username", "p1");
 		try {
 			registry.signOff(user);
@@ -205,7 +205,7 @@ public class AuthenticationRegistryTest {
 	}
 	
 	@Test
-	public void signOffWithIncorrectAdminTest() {
+	public void shouldReturnExceptionWhenAdminSignsOffWithIncorrectCredentialsTest() {
 		Administrator admin = new Administrator("admin", "p1");
 		try {
 			registry.signOff(admin);
@@ -222,7 +222,7 @@ public class AuthenticationRegistryTest {
 	
 	/*Administrators need to know how many users have registered.*/
 	@Test
-	public void adminChecksNumberOfUsersTest() {
+	public void shouldReturnFourWhenAdminChecksNumberOfUsersInRegistryTest() {
 		Administrator admin = new Administrator("a1", "p1");
 		try {
 			int noUsers = admin.checkRegisteredUsers();
@@ -234,7 +234,7 @@ public class AuthenticationRegistryTest {
 	}
 
 	@Test
-	public void usersChecksNumberOfUsersWithoutCorrectPrivilegesTest() {
+	public void shouldReturnExceptionWhenUserChecksNumberOfUsersWithoutCorrectPrivilegesTest() {
 		User user = new User("username", "password");
 		try {
 			int noUsers = user.checkRegisteredUsers();
