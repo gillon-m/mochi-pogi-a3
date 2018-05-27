@@ -13,7 +13,7 @@ import validator.Cluster;
 
 public class PopularityCalculationTest {
 	@Test
-	public void testPopularityCalculation() {
+	public void shouldReturnThePopularityOfCategoriesWhenTheClusterHasThreeCategories() {
 		Category c1 = Mockito.mock(Category.class);
 		Category c2 = Mockito.mock(Category.class);
 		Category c3 = Mockito.mock(Category.class);
@@ -32,13 +32,13 @@ public class PopularityCalculationTest {
 	}
 
 	@Test
-	public void testNoCategories(){
+	public void shouldReturnZeroPopularityWhenThereNoCategoriesInTheCluster(){
 		Cluster bi = new Cluster();
 		assertEquals(0.0, bi.getPopularity("Category"), 0.001);
 	}
 	
 	@Test
-	public void testOneCategory(){
+	public void shouldReturnAPopularityOfOneWhenThereIsOneCategoryInTheCluster(){
 		Category c1 = Mockito.mock(Category.class);
 		Mockito.when(c1.size()).thenReturn(50);
 		Cluster bi = new Cluster();
@@ -47,7 +47,7 @@ public class PopularityCalculationTest {
 	}
 	
 	@Test
-	public void testNoDocuments(){
+	public void shouldReturnZeroPopularityWhenThereAreNoDocumentsInTheCategories(){
 		Category c1 = Mockito.mock(Category.class);
 		Category c2 = Mockito.mock(Category.class);
 		Category c3 = Mockito.mock(Category.class);
@@ -69,7 +69,7 @@ public class PopularityCalculationTest {
 	
 
 	@Test
-	public void testNoDocumentsForOneCategory(){
+	public void shouldReturnThePopularityOfCategoriesWhenThereAreNoDocumentsForOneCategoryInTheCluster(){
 		Category c1 = Mockito.mock(Category.class);
 		Category c2 = Mockito.mock(Category.class);
 		Category c3 = Mockito.mock(Category.class);
