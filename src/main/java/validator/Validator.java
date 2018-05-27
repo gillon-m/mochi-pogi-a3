@@ -79,9 +79,7 @@ public class Validator {
 			for(Word w: keyWords){
 				stringWords.add(w.getName());
 			}
-			System.out.println(stringWords + " STRINGWORDS");
 			List<Document> documents = dp.getDocumentsFromKeywords(stringWords, client, "DocumentRegistry");
-			System.out.println(documents.size());
 			List<Category> categories = dp.getClustersFromDocuments(documents);
 			Set<Category> categorySet = new HashSet<Category>(categories);
 			Cluster cluster = new Cluster(categorySet);
@@ -156,10 +154,10 @@ public class Validator {
 		roles.add(new Administrator("a1", "p1"));
 		Mockito.when(db.getRoles()).thenReturn(roles);
 
-		//Word word1 = Mockito.spy(new Word("Dogs", 10));
-		Word word2 = Mockito.spy(new Word("Cats", 9));
+		Word word1 = Mockito.spy(new Word("Training", 10));
+		Word word2 = Mockito.spy(new Word("Dogs", 9));
 		Set<Word> words = new HashSet<Word>();
-		//words.add(word1);
+		words.add(word1);
 		words.add(word2);
 		
 		Mockito.when(ip.extractKeywords("k")).thenReturn(words);	

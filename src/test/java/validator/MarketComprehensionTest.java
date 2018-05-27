@@ -102,15 +102,20 @@ public class MarketComprehensionTest {
   
 	private List<Document> getDocumentsOnKeywords(List<String> words) {
 		List<String> keywords = new ArrayList<String>();
+		List<Document> docs = new ArrayList<Document>();
 		for (String s : words) {
 			keywords.add(new Word(s).getName());
 		}
 
 		DocumentProcessor mc = new DocumentProcessor();
-		List<Document> searchResultDocuments = mc.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
-
-		Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
-		List<Document> docs = se.getDocumentsFromKeyWords(keywords);
+		List<Document> searchResultDocuments;
+		try {
+			searchResultDocuments = mc.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
+			Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
+			docs = se.getDocumentsFromKeyWords(keywords);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		return docs;
 	}	
 
