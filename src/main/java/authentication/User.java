@@ -24,39 +24,6 @@ public class User implements Role{
 		return _password;
 	}
 
-	public void setUsername(String username) {
-		_username = username;
-		
-	}
-
-	public void setPassword(String password) {
-		_password = password;
-		
-	}
-
-	public boolean signIn(String username, String password) {
-		if (_username == username && password == _password) {
-			if (_signStatus) {
-				return false;
-			} else {
-				_signStatus = true;
-				return true;
-			}
-		}
-		return false;
-
-	}
-
-	public boolean signOut() {
-		if (!_signStatus) {
-			return false;
-		} else {
-			_signStatus = false;
-			resetSessionCount();
-			return true;
-		}
-	}
-
 	private void resetSessionCount() {
 		_sessionCount = 0;
 	}
@@ -82,7 +49,7 @@ public class User implements Role{
 	}
 
 	public int checkRegisteredUsers() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
