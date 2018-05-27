@@ -42,14 +42,14 @@ public class AuthenticationRoleTest {
 
 	//check if user is user and admin is admin
 	@Test
-	public void RoleisAdministratorTest() {
+	public void checkIfRoleisAdministratorTest() {
 		Administrator admin = new Administrator("username", "password");
 		assertNotEquals(admin.getClass(), User.class);
 		assertEquals(admin.getClass(), Administrator.class);
 	}
 	
 	@Test
-	public void RoleisUserTest() {
+	public void checkIfRoleisUserTest() {
 		User user = new User("username", "password");
 		assertEquals(user.getClass(), User.class);
 		assertNotEquals(user.getClass(), Administrator.class);
@@ -59,7 +59,7 @@ public class AuthenticationRoleTest {
 
 	
 	@Test
-	public void validSigninAdminTest() {
+	public void validSigninAdminWhenCorrectCredentialsAreEnteredTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			assertTrue(admin instanceof Administrator);
@@ -71,19 +71,19 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void validSigninUserTest() {
+	public void validSigninUserWhenCorrectCredentialsAreEnteredTest() {
 		try {
-			Role user = registry.signIn("u1", "p1");
+			Role user = registry.signIn("u2", "p2");
 			assertTrue(user instanceof User);
-			assertEquals("u1", user.getUsername());
-			assertEquals("p1", user.getPassword());
+			assertEquals("u2", user.getUsername());
+			assertEquals("p2", user.getPassword());
 		} catch (AuthenticationException e) {
 			fail();
 		}
 	}
 	
 	@Test
-	public void userNotInRegistryTest() {
+	public void checkWhenUserNotInRegistryTest() {
 		try {
 			registry.signIn("username", "password");
 			fail();
@@ -94,7 +94,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void adminNotInRegistryTest() {
+	public void checkWhenadminNotInRegistryTest() {
 		try {
 			registry.signIn("username", "password");
 		} catch (AuthenticationException e) {
@@ -129,7 +129,7 @@ public class AuthenticationRoleTest {
 	//check if the user and/or admin can signup
 	
 	@Test
-	public void SignUpUserWhenNewCredentialsAreEnteredTest() {
+	public void signUpUserWhenNewCredentialsAreEnteredTest() {
 		try {
 			Role user = registry.signUp("username", "password", User.class);
 			assertTrue(user instanceof User);
@@ -142,7 +142,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignUpAdminWhenNewCredentialsAreEnteredTest() {
+	public void signUpAdminWhenNewCredentialsAreEnteredTest() {
 		try {
 			Role admin = registry.signUp("admin", "password", Administrator.class);
 			assertTrue(admin instanceof Administrator); 
@@ -155,7 +155,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignUpUserAlreadyExistsInRegistryTest() {
+	public void signUpUserAlreadyExistsInRegistryTest() {
 		try {
 			Role user = registry.signUp("u1", "p1", User.class);
 			fail();
@@ -167,7 +167,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignUpAdminAlreadyExistsInRegistryTest() {
+	public void signUpAdminAlreadyExistsInRegistryTest() {
 		try {
 			Role admin = registry.signUp("a1", "p1", Administrator.class);
 			fail();
@@ -182,7 +182,7 @@ public class AuthenticationRoleTest {
 	//check if the user and admin can sign off
 	
 	@Test
-	public void SignOffUserTest() {
+	public void signOffUserTest() {
 		User user = new User("u1", "p1");
 		try {
 			registry.signOff(user);
@@ -195,7 +195,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignOffAdminTest() {
+	public void signOffAdminTest() {
 		Administrator admin = new Administrator("a1", "p1");
 		try {
 			registry.signOff(admin);
@@ -209,7 +209,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignOffWithIncorrectUserTest() {
+	public void signOffWithIncorrectUserTest() {
 		User user = new User("username", "p1");
 		try {
 			registry.signOff(user);
@@ -222,7 +222,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void SignOffWithIncorrectAdminTest() {
+	public void signOffWithIncorrectAdminTest() {
 		Administrator admin = new Administrator("admin", "p1");
 		try {
 			registry.signOff(admin);
@@ -251,7 +251,7 @@ public class AuthenticationRoleTest {
 	}
 
 	@Test
-	public void usersChecksNumberOfUsersTest() {
+	public void usersChecksNumberOfUsersWithoutCorrectPrivilegesTest() {
 		User user = new User("username", "password");
 		try {
 			int noUsers = user.checkRegisteredUsers();
@@ -265,7 +265,7 @@ public class AuthenticationRoleTest {
 	
 	//check if they are in the current session
 	@Test
-	public void userCurrentSessionCountTest() {
+	public void userChecksCurrentSessionCountTest() {
 		try {
 			Role user = registry.signIn("u1", "p1");
 			int userSessionCount = 0;
@@ -280,7 +280,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void userTotalSearchCountOfTwoTest() {
+	public void userChecksTotalSearchCountOfTwoTest() {
 		try {
 			Role user = registry.signIn("u1", "p1");
 			int userTotalSearchCount = 0;
@@ -304,7 +304,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void AdminThrowsExceptionWhenSearchingCountTest() {
+	public void adminThrowsExceptionWhenSearchingCountTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			if (admin.signStatus()) {
@@ -318,7 +318,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void AdminThrowsExceptionWhenSearchingForSearchTotalCountTest() {
+	public void adminThrowsExceptionWhenSearchingForSearchTotalCountTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			if (admin.signStatus()) {
@@ -332,7 +332,7 @@ public class AuthenticationRoleTest {
 	}
 	
 	@Test
-	public void AdminThrowsExceptionWhenSearchingForSearchCurrentCountTest() {
+	public void adminThrowsExceptionWhenSearchingForSearchCurrentCountTest() {
 		try {
 			Role admin = registry.signIn("a1", "p1");
 			if (admin.signStatus()) {
