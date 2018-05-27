@@ -11,7 +11,8 @@ public class SearchHandler {
 		_ip = ip;
 	}
 	public Set<Word> doSearch(String input, User user) {
-		if (user._signStatus) {
+		if (user.isSignedIn()) {
+			user.addSearchCount();
 			return _ip.extractKeywords(input);
 		}
 		return null;
