@@ -16,8 +16,8 @@ public class Registry {
 		boolean passwordIncorrect = false;
 		boolean roleNotFound = false;
 		for (int i= 0; i< rolesList.size(); i++) {
-			if (rolesList.get(i).getUsername() == username) {
-				if (rolesList.get(i).getPassword() == password) {
+			if (rolesList.get(i).getUsername().equals(username)) {
+				if (rolesList.get(i).getPassword().equals(password)) {
 					rolesList.get(i).setSignStatus();
 					return rolesList.get(i);
 				} else {
