@@ -154,6 +154,30 @@ public class AuthenticationRoleTest {
 			fail();
 		}
 	}
+	
+	@Test
+	public void SignUpUserAlreadyExistsInRegistryTest() {
+		try {
+			Role user = registry.signUp("username", "password", User.class);
+			fail();
+
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Username already Taken", exception.getMessage());
+		}
+	}
+	
+	@Test
+	public void SignUpAdminAlreadyExistsInRegistryTest() {
+		try {
+			Role admin = registry.signUp("username", "password", Administrator.class);
+			fail();
+
+		} catch (AuthenticationException e) {
+			exception = e;
+			assertEquals("Username already Taken", exception.getMessage());
+		}
+	}
 
 	
 	//check if the user and admin can sign off
