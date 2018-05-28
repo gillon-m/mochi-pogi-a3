@@ -6,8 +6,7 @@ public interface Role {
 
 	public int checkRegisteredUsers();
 	
-	public void setSignStatus();
-	public boolean signStatus();
-	
-	
+	public void signIn();
+	public void signOut();
+	public boolean isSignedIn();
 }

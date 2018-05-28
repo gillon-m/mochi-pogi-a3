@@ -7,55 +7,48 @@ import validator.exceptions.AuthenticationException;
 
 public class Registry {
 	private static Registry instance;
+	private MongoDatabase db;
 	private List<Role> rolesList;
 
 	private Registry() {
 	}
 
+	public static Registry getInstance() {
+		if(instance == null) {
+			instance = new Registry();
+		}
+		return instance;
+	}
+
 	public Role signIn(String username, String password){
-		boolean passwordIncorrect = false;
 		boolean roleNotFound = false;
-		for (int i= 0; i< rolesList.size(); i++) {
-			if (rolesList.get(i).getUsername().equals(username)) {
-				if (rolesList.get(i).getPassword().equals(password)) {
-					rolesList.get(i).setSignStatus();
-					return rolesList.get(i);
+		for (Role role : rolesList) {
+			if (role.getUsername().equals(username)) {
+				if (role.getPassword().equals(password)) {
+					role.signIn();
+					return role;
 				} else {
-					passwordIncorrect = true;
-					break;
+					throw new AuthenticationException("Password Incorrect");
 				}
 			} else {
 				roleNotFound = true;
 			}
-		}
-		if (passwordIncorrect) {
-			throw new AuthenticationException("Password Incorrect");
 		}
 		if (roleNotFound) {
 			throw new AuthenticationException("Role Not Found");
 		}
 		return null;
-
 	}
 
-	public void signOff(Role role){
-		boolean roleNotFound = false;
-		for (int i= 0; i< rolesList.size(); i++) {
-			if (rolesList.get(i).getUsername() == role.getUsername()) {
-				if (rolesList.get(i).getPassword() == role.getPassword()) {
-					rolesList.get(i).setSignStatus();
-					//has successfully signed off
-					roleNotFound = false;
-					break;
-				} else {
-					roleNotFound = true;
-				}
-			} else {
-				roleNotFound = true;
+	public void signOff(String username){
+		Role role = null;
+		for (Role r: rolesList) {
+			if (r.getUsername().equals(username)) {
+				role = r;
 			}
 		}
-		if (roleNotFound) {
-			throw new AuthenticationException("Role Not Found");
+		if (role != null) {
+			role.signOut();			
 		}
 	}
 
@@ -77,14 +70,12 @@ public class Registry {
 		return role;
 	}
 
-	public static Registry getInstance() {
-		if(instance == null) {
-			instance = new Registry();
-		}
-		return instance;
-	}
 	public void setDatabase(MongoDatabase db){
-		rolesList=db.getRoles();
+		this.db = db;
+	}
+	
+	public void setRoles() {
+		rolesList = db.getRoles();
 	}
 	
 	int getUserSize() {
@@ -95,6 +86,13 @@ public class Registry {
 			}
 		}
 		return count;
+	}	
+	
+	public int getTotalSearchCount(String username) {
+		return db.getTotalSearchCount(username);
 	}
 
+	public void setTotalSearchCount(String username, int updatedCount) {
+		db.setTotalSearchCount(username, updatedCount);
+	}
 }

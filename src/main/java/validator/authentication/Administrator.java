@@ -1,15 +1,14 @@
 package validator.authentication;
 
-import validator.exceptions.AuthenticationException;
-
 public class Administrator implements Role{
 	public String _username;
 	public String _password;
-	private boolean _signStatus;
+	private boolean _isSignedIn;
 
 	public Administrator(String username, String password) {
 		_username = username;
 		_password = password;
+		_isSignedIn = true;
 	}
 
 
@@ -23,21 +22,18 @@ public class Administrator implements Role{
 
 	public int checkRegisteredUsers() {
 		return Registry.getInstance().getUserSize();
-		
 	}
 	
-	public boolean signStatus() {
-		return _signStatus;
+	public boolean isSignedIn() {
+		return _isSignedIn;
 	}
 
-	public void setSignStatus() {
-		if (_signStatus) {
-			_signStatus = false;
-		} else {
-			_signStatus = true;
-		}
+	public void signIn() {
+		_isSignedIn = true;
+	}
 	
-		
+	public void signOut() {
+		_isSignedIn = false;
 	}
 
 }
