@@ -25,6 +25,7 @@ import validator.cluster.Summary;
 import validator.database.DocumentPersistence;
 import validator.database.MongoClient;
 import validator.database.MongoDatabase;
+import validator.exceptions.NoDocumentsReturnedException;
 import validator.search.SearchEngine;
 
 public class MarketComprehensionTest {
@@ -100,22 +101,18 @@ public class MarketComprehensionTest {
 		return documents;
 	}
   
-	private List<Document> getDocumentsOnKeywords(List<String> words) {
+	private List<Document> getDocumentsOnKeywords(List<String> words) throws NoDocumentsReturnedException {
 		List<String> keywords = new ArrayList<String>();
 		List<Document> docs = new ArrayList<Document>();
 		for (String s : words) {
 			keywords.add(new Word(s).getName());
 		}
 
-		DocumentProcessor mc = new DocumentProcessor();
+		DocumentProcessor dp = new DocumentProcessor();
 		List<Document> searchResultDocuments;
-		try {
-			searchResultDocuments = mc.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
-			Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
-			docs = se.getDocumentsFromKeyWords(keywords);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		searchResultDocuments = dp.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
+		Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
+		docs = se.getDocumentsFromKeyWords(keywords);
 		return docs;
 	}	
 
@@ -123,10 +120,18 @@ public class MarketComprehensionTest {
 	@Test
 	public void searchWithKeywordsShouldGiveDocuments() {
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
-		List<Document> docs = getDocumentsOnKeywords(keywords);
-		assert(!docs.isEmpty());
+		List<Document> docs;
+		docs = getDocumentsOnKeywords(keywords);
+		assert(docs.size() != 0);
 	}
 
+	@Test(expected = NoDocumentsReturnedException.class)
+	public void searchWithInvalidKeywordsShouldGiveNoDocuments() {
+		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("KeywordThatMakesCategoryThatDoesNotExist")));
+		List<Document> docs = getDocumentsOnKeywords(keywords);
+		fail();
+		
+	}
 	@SuppressWarnings({ "unchecked" })
 	@Test
 	public void searchTrainingWithTrainingCategoryShouldReturnThreeDocuments() {
@@ -248,6 +253,22 @@ public class MarketComprehensionTest {
 		}
 	}
 
+	@Test
+	public void generateBaristaLabelWithTwoKeywordsShouldReturnTwoCommaSeparatedCategories() {
+		DocumentProcessor mc = new DocumentProcessor();
+		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training"), new String("Cats")));
+		List<Document> documents = getDocumentsOnKeywords(keywords);
+		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
+		String generateLabelForCategory = "Barista";
+
+		String expectedLabel = "Searching for keyword: Cats, Training contains"
+				+ " 2 categories. The Barista category contains Barista documents for Barista, Training.";
+		for (Category category : categoryCluster) {
+			if (category.toString().equals(generateLabelForCategory)) {
+				assertEquals(mc.generateLabel(generateLabelForCategory, keywords, documents), expectedLabel);
+			}
+		}
+	}
 	@Test
 	public void generateTrainingLabelShouldReturnSixCategories() {
 		DocumentProcessor mc = new DocumentProcessor();

@@ -11,7 +11,6 @@ public class Document {
 	private String summary;
 	private List<Word> keywords;
 	
-	public Document() {}
 	public Document(String title, String content, String summary, 
 			List<Word> keywords) {
 		
@@ -22,18 +21,6 @@ public class Document {
 	}
 	public String getTitle() {
 		return title;
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	
-	public String getSummary() {
-		return summary;
-	}
-
-	public List<Word> getKeywords() {
-		return keywords;
 	}
 	
 	public List<String> getStringKeyWords() {

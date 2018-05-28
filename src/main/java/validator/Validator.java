@@ -96,14 +96,10 @@ public class Validator {
 				System.out.println("-------------------------------------------------");
 				System.out.println("Title: "+ d.getTitle());
 				System.out.print("Keywords: ");
-				for(Word w: d.getKeywords()){
-					System.out.print(w.getName()+" ");
+				for(String s: d.getStringKeyWords()){
+					System.out.print(s+" ");
 				}
 				System.out.println();
-				System.out.println("Summary: ");
-				System.out.println(d.getSummary());
-				System.out.println("Content: ");
-				System.out.println(d.getContent());
 				System.out.println("-------------------------------------------------");
 			}
 			System.out.println();
