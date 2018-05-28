@@ -26,7 +26,11 @@ import validator.word.InputProcessor;
 import validator.word.KeywordsEditor;
 import validator.word.SearchHandler;
 import validator.word.Word;
-
+/**
+ * The Validator class is a runnable class that is use to demonstrate the functionality of the 
+ * entire system. This demonstration does not include all of the system's functionalities - it is 
+ * simply used to show how the different modules interact with each other.
+ */
 public class Validator {
 	public static void main(String[] args){
 		new Validator();
@@ -42,31 +46,35 @@ public class Validator {
 		registry.setRoles();
 		BufferedReader br = null;
 		try{
+			System.out.println("This is a demo shows how the system can be made runnable. Not all functionalities are used in this demo");
+			System.out.println();
 			br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("List of registered users you can use to sign in");
 			for(Role r: db.getRoles()){
-				System.out.println(r.getUsername());
-				System.out.println(r.getPassword());
+				System.out.println("USERNAME: "+ r.getUsername()+" | PASSWORD: "+r.getPassword());
 			}
-			System.out.println("Username: ");
+			System.out.println();
+			System.out.println("LOGIN ");
+			System.out.print("Username: ");
 			String username = br.readLine();
-			System.out.println("Password: ");
+			System.out.print("Password: ");
 			String password = br.readLine();
 			User user = (User) registry.signIn(username, password);
-			System.out.println(user);
-			System.out.println("Enter a search query: ");
+			System.out.println();
+			System.out.println("Enter a search query: I want to start a business with cats and dogs");
 			SearchHandler sh = new SearchHandler(ip);
-			System.out.println("Press enter");
-			br.readLine();
 			Set<Word> keyWords = sh.doSearch("k", user);
-			System.out.println("Keywords from search query: I want to start a business with cats and dogs");
+			System.out.println("Keywords from search query: ");
 			for(Word word: keyWords){
-				System.out.println(word.getName());
+				System.out.println("- "+word.getName());
 			}
 			KeywordsEditor keywordEditor = new KeywordsEditor(keyWords);
-			System.out.println("Choose word: ");
+			System.out.println();
+			System.out.print("Choose word: ");
+			String chosenWord = br.readLine();
 			Word word = null;
 			for(Word w: keyWords){
-				if(w.getName().equals(br.readLine())){
+				if(w.getName().equals(chosenWord)){
 					word = w;
 					break;
 				}
@@ -74,20 +82,50 @@ public class Validator {
 			if(word ==null){
 				throw new Exception("Word doesn't exist");
 			}
-			System.out.println("Set the weight of the keyword");
+			System.out.print("Set the weight of the keyword: ");
 			keywordEditor.changeKeywordPriority(word, Integer.parseInt(br.readLine()));
 			DocumentProcessor dp = new DocumentProcessor();
 			List<String> stringWords = new LinkedList<String>();
+			System.out.println();
+			System.out.println("Documents returned: ");
 			for(Word w: keyWords){
 				stringWords.add(w.getName());
 			}
 			List<Document> documents = dp.getDocumentsFromKeywords(stringWords, client, "DocumentRegistry");
+			for(Document d: documents){
+				System.out.println("-------------------------------------------------");
+				System.out.println("Title: "+ d.getTitle());
+				System.out.print("Keywords: ");
+				for(String s: d.getStringKeyWords()){
+					System.out.print(s+" ");
+				}
+				System.out.println();
+				System.out.println("-------------------------------------------------");
+			}
+			System.out.println();
 			List<Category> categories = dp.getClustersFromDocuments(documents);
+			System.out.println("Categories: ");
+			for(Category c : categories){
+				System.out.print("- "+c+": ");
+				for(Document d: c.getDocumentsOfThisCategory()){
+					System.out.print("\""+d.getTitle()+"\" ");
+				}
+				System.out.println();
+			}
 			Set<Category> categorySet = new HashSet<Category>(categories);
 			Cluster cluster = new Cluster(categorySet);
-			System.out.println("Get maturity of business idea: ");
+			System.out.println();
+			System.out.print("Choose Category to set relevance: ");
+			Category c = cluster.get(br.readLine());
+			if(c==null){
+				throw new Exception("Category not found");
+			}
+			System.out.print("Set relevance of "+c+": ");
+			c.relevance(Double.parseDouble(br.readLine()));
+			System.out.println();
+			System.out.print("Maturity of business idea: ");
 			System.out.println(cluster.maturity());
-			System.out.println("==Finished Demo==");
+			System.out.println("==END OF DEMO==");
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -95,6 +133,12 @@ public class Validator {
 		
 	}
 	
+	/**
+	 * Initialize the mock methods for the mock objects used
+	 * @param db
+	 * @param client
+	 * @param ip
+	 */
 	private void initialiseMockMethods(MongoDatabase db, MongoClient client, InputProcessor ip){
 		Document dogWalkingRoskillDocument = new DocumentBuilder()
 				.setTitle("Dog walking in east Auckland")
