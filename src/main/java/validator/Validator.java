@@ -26,7 +26,11 @@ import validator.word.InputProcessor;
 import validator.word.KeywordsEditor;
 import validator.word.SearchHandler;
 import validator.word.Word;
-
+/**
+ * The Validator class is a runnable class that is use to demonstrate the functionality of the 
+ * entire system. This demonstration does not include all of the system's functionalities - it is 
+ * simply used to show how the different modules interact with each other.
+ */
 public class Validator {
 	public static void main(String[] args){
 		new Validator();
