@@ -8,7 +8,7 @@ import java.util.Set;
 
 import validator.database.DocumentPersistence;
 import validator.database.MongoClient;
-import validator.word.Word;
+import validator.exceptions.NoDocumentsReturnedException;
 
 public class DocumentProcessor {	
 	/**
@@ -19,7 +19,7 @@ public class DocumentProcessor {
 	 * @return
 	 * @throws Exception 
 	 */
-	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) throws Exception {
+	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) throws NoDocumentsReturnedException {
 		List<Document> searchResultDocuments = new ArrayList<Document>();
 		DocumentPersistence documentPersistence = new DocumentPersistence(mongoClient, documentRegistryDBName);
 		for (Document d : documentPersistence.getAllDocuments()) {
@@ -31,7 +31,7 @@ public class DocumentProcessor {
 			}
 		}
 		if (searchResultDocuments.size() == 0) {
-			throw new Exception("No documents were returned by your search.");
+			throw new NoDocumentsReturnedException("No documents were returned by your search. No documents were returned by your search query, or an error occurred your search.");
 		}
 		return searchResultDocuments;
 	}

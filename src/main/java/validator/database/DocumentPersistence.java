@@ -21,10 +21,6 @@ public class DocumentPersistence {
 		this.mongoList = this.mongoDatabase.getList();
 	}
 	
-	public boolean isMongoDBClientNull() {
-		return this.mongoClient==null;
-	}
-	
 	public List<Document> getAllDocuments() {
 		return mongoList;
 	}
