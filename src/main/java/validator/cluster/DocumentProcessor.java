@@ -1,4 +1,4 @@
-package validator.marketcomprehension;
+package validator.cluster;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,28 +6,36 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import validator.Category;
-import validator.Word;
+import validator.database.DocumentPersistence;
+import validator.database.MongoClient;
+import validator.word.Word;
 
-public class MarketComprehension {	
+public class DocumentProcessor {	
 	/**
 	 * Gets documents from the database if the document contains keyword param keyword.
 	 * @param keywords the keyword to identify documents
 	 * @param mongoClient name of the mongoDB client
 	 * @param documentRegistryDBName name of the database
 	 * @return
+	 * @throws Exception 
 	 */
-	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) {
+	public List<Document> getDocumentsFromKeywords(List<String> keywords, MongoClient mongoClient, String documentRegistryDBName) throws Exception {
 		List<Document> searchResultDocuments = new ArrayList<Document>();
 		DocumentPersistence documentPersistence = new DocumentPersistence(mongoClient, documentRegistryDBName);
 		for (Document d : documentPersistence.getAllDocuments()) {
-			if (d.getStringKeyWords().containsAll(keywords)) {
-				searchResultDocuments.add(d);
+			for (String s : keywords) {
+				if (d.getStringKeyWords().contains(s)) {
+					searchResultDocuments.add(d);
+				}
+
 			}
+		}
+		if (searchResultDocuments.size() == 0) {
+			throw new Exception("No documents were returned by your search.");
 		}
 		return searchResultDocuments;
 	}
-	
+
 	/**
 	 * Returns a list of all unique categories for a given list of documents
 	 * @param docs documents to analyze
@@ -42,7 +50,7 @@ public class MarketComprehension {
 		List<Category> categoryCluster = getCategoryClusters(docs);
 		return categoryCluster;
 	}
-	
+
 	/**
 	 * For a given category, places the document in that category if it contains that keyword
 	 * @param docs List of documents to categorize
@@ -58,7 +66,7 @@ public class MarketComprehension {
 				}
 			}
 		}
-		
+
 		return categories;
 	}
 
@@ -80,10 +88,10 @@ public class MarketComprehension {
 		}
 		return categorySet;
 	}
-	
+
 	public String generateLabel(String category, List<String> keywords, List<Document> documents) {
 		List<Document> labelDocs = new ArrayList<Document>();
-		
+
 		for (Document d : documents) {
 			for (String s : d.getStringKeyWords()) {
 				if (s.equals(category)) {
@@ -92,18 +100,18 @@ public class MarketComprehension {
 			}
 		}
 		List<Category> categoryCluster = getClustersFromDocuments(labelDocs);
-		
-		
+
+
 		List<String> categoryNames = new ArrayList<String>();
 		for (Category c : categoryCluster) {
 			categoryNames.add(c.toString());
 		}
-	
+
 		Collections.sort(keywords, String.CASE_INSENSITIVE_ORDER);
 		Collections.sort(categoryNames, String.CASE_INSENSITIVE_ORDER);
-		
+
 		String label = "Searching for keyword: ";
-		
+
 		for (int i = 0; i < keywords.size(); i++) {
 			if (i == keywords.size()-1) {
 				label += keywords.get(i);
@@ -111,9 +119,9 @@ public class MarketComprehension {
 				label += keywords.get(i) + ", ";
 			}
 		}
-		
+
 		label += " contains " + categoryCluster.size() + " categories. The " + category + " category contains " + category + " documents for ";
-		
+
 		for (int i = 0; i < categoryNames.size(); i++) {
 			if (i == categoryNames.size()-1) {
 				label += categoryNames.get(i);
@@ -121,10 +129,10 @@ public class MarketComprehension {
 				label += categoryNames.get(i) + ", ";
 			}
 		}
-		
+
 		label += ".";
 		return label;
 	}
-	
-	
+
+
 }

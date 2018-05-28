@@ -1,22 +1,20 @@
-package authentication;
+package validator.authentication;
 
 import validator.exceptions.AuthenticationException;
 
 public class User implements Role{
-
-	public String _username;
-	public String _password;
-	public boolean _signStatus;
-	public int _sessionCount;
-	public int _totalSearchCount;
-	public String _input;
+	private String _username;
+	private String _password;
+	private boolean _isSignedIn;
+	private int _sessionCount;
+	private int _totalSearchCount;
 	
 	public User(String username, String password) {
 		_username = username;
 		_password = password;
-		_signStatus = false;
+		_isSignedIn = true;
 		_sessionCount = 0;
-		_totalSearchCount = 0;
+		_totalSearchCount = Registry.getInstance().getTotalSearchCount(username);
 	}
 
 	public String getUsername() {
@@ -31,8 +29,8 @@ public class User implements Role{
 		_sessionCount = 0;
 	}
 
-	public boolean signStatus() {
-		return _signStatus;
+	public boolean isSignedIn() {
+		return _isSignedIn;
 	}
 
 	public int getSessionCount() {
@@ -56,14 +54,13 @@ public class User implements Role{
 		throw new AuthenticationException("User Cannot Search");
 	}
 
-	public void setSignStatus() {
-		if (_signStatus) {
-			resetSessionCount();
-			_signStatus = false;
-		} else {
-			_signStatus = true;
-		}
+	public void signIn() {
+		_isSignedIn = true;
 	}
-
-
+	
+	public void signOut() {
+		_isSignedIn = false;
+		resetSessionCount();
+		Registry.getInstance().setTotalSearchCount(_username, _totalSearchCount);
+	}	
 }

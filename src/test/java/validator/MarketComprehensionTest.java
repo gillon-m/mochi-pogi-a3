@@ -16,15 +16,16 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasProperty;
 
-import validator.marketcomprehension.Document;
-import validator.marketcomprehension.DocumentBuilder;
-import validator.marketcomprehension.DocumentPersistence;
-import validator.marketcomprehension.MarketComprehension;
-import validator.marketcomprehension.MongoClient;
-import validator.marketcomprehension.MongoDatabase;
-import validator.marketcomprehension.SearchEngine;
-import validator.marketcomprehension.Summary;
-import validator.Category;
+import validator.word.Word;
+import validator.cluster.Category;
+import validator.cluster.Document;
+import validator.cluster.DocumentBuilder;
+import validator.cluster.DocumentProcessor;
+import validator.cluster.Summary;
+import validator.database.DocumentPersistence;
+import validator.database.MongoClient;
+import validator.database.MongoDatabase;
+import validator.search.SearchEngine;
 
 public class MarketComprehensionTest {
 	@Mock SearchEngine se;
@@ -101,15 +102,20 @@ public class MarketComprehensionTest {
   
 	private List<Document> getDocumentsOnKeywords(List<String> words) {
 		List<String> keywords = new ArrayList<String>();
+		List<Document> docs = new ArrayList<Document>();
 		for (String s : words) {
 			keywords.add(new Word(s).getName());
 		}
 
-		MarketComprehension mc = new MarketComprehension();
-		List<Document> searchResultDocuments = mc.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
-
-		Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
-		List<Document> docs = se.getDocumentsFromKeyWords(keywords);
+		DocumentProcessor mc = new DocumentProcessor();
+		List<Document> searchResultDocuments;
+		try {
+			searchResultDocuments = mc.getDocumentsFromKeywords(keywords, mongoClient, documentRegistryDBName);
+			Mockito.when(se.getDocumentsFromKeyWords(keywords)).thenReturn(searchResultDocuments);
+			docs = se.getDocumentsFromKeyWords(keywords);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		return docs;
 	}	
 
@@ -124,7 +130,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "unchecked" })
 	@Test
 	public void searchTrainingWithTrainingCategoryShouldReturnThreeDocuments() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -143,7 +149,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void searchTrainingWithDogCategoryShouldReturnOneDocument() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -160,7 +166,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "unchecked" })
 	@Test
 	public void searchTrainingWithAnimalsCategoryShouldReturnTwoDocuments() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -178,7 +184,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void searchTrainingWithParrotCategoryShouldReturnTwoDocuments() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -194,7 +200,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void searchTrainingWithDaycareCategoryShouldReturnOneDocument() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -211,7 +217,7 @@ public class MarketComprehensionTest {
 	@SuppressWarnings({ "deprecation" })
 	@Test
 	public void searchTrainingWithBaristaCategoryShouldReturnOneDocument() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -227,7 +233,7 @@ public class MarketComprehensionTest {
 
 	@Test
 	public void generateBaristaLabelShouldReturnTwoCategories() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -244,7 +250,7 @@ public class MarketComprehensionTest {
 
 	@Test
 	public void generateTrainingLabelShouldReturnSixCategories() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -261,7 +267,7 @@ public class MarketComprehensionTest {
 
 	@Test
 	public void generateWalkingLabelShouldReturnTwoCategories() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Walking")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);
@@ -278,7 +284,7 @@ public class MarketComprehensionTest {
 
 	@Test
 	public void trainingCategoryGeneratesASummary() {
-		MarketComprehension mc = new MarketComprehension();
+		DocumentProcessor mc = new DocumentProcessor();
 		List<String> keywords = new ArrayList<String>(Arrays.asList(new String("Training")));
 		List<Document> documents = getDocumentsOnKeywords(keywords);
 		List<Category> categoryCluster = mc.getClustersFromDocuments(documents);

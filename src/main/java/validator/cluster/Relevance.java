@@ -1,4 +1,4 @@
-package validator;
+package validator.cluster;
 
 public enum Relevance {
 	NOT_RELEVANT(0.0), WEAK_RELEVANT(0.2), RELEVANT(0.5), VERY_RELEVANT(0.8), THE_SAME(1.0);

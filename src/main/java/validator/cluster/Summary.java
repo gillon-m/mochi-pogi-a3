@@ -1,4 +1,4 @@
-package validator.marketcomprehension;
+package validator.cluster;
 
 import java.util.List;
 

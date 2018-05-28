@@ -4,7 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import validator.MarketComprehensionTest;
-import validator.AuthenticationRegistryTest;
+import validator.AdministratorPrevilegeActionTest;
+import validator.AuthenticationTest;
+import validator.UserPrevilegeActionTest;
 import validator.BusinessIdeaMaturityTest;
 import validator.ChangeKeywordWeightInvalidTest;
 import validator.ChangeKeywordWeightValidTest;
@@ -21,21 +23,22 @@ import validator.SetCategoryRelevanceNominallyTest;
 @RunWith(Suite.class)				
 @Suite.SuiteClasses({
 	//add test cases here
-	AuthenticationRegistryTest.class,
-	MarketComprehensionTest.class,
+	AdministratorPrevilegeActionTest.class,
+	AuthenticationTest.class,
 	BusinessIdeaMaturityTest.class,
-	PopularityCalculationTest.class,
-	SetCategoryRelevanceTest.class,
-	SetCategoryRelevanceNominallyTest.class,
-	BusinessIdeaMaturityTest.class,
+	ChangeKeywordWeightInvalidTest.class,
+	ChangeKeywordWeightValidTest.class,
 	InjectKeywordInvalidTest.class,
 	InjectKeywordValidTest.class,
 	InjectKeywordWhenFullTest.class,
+	MarketComprehensionTest.class,
+	PopularityCalculationTest.class,
 	RemoveKeywordValidTest.class,
 	RemoveKeywordInvalidTest.class,
 	RemoveKeywordWhenEmptyTest.class,
-	ChangeKeywordWeightInvalidTest.class,
-	ChangeKeywordWeightValidTest.class
+	SetCategoryRelevanceTest.class,
+	SetCategoryRelevanceNominallyTest.class,
+	UserPrevilegeActionTest.class
 })
 public class TestSuite {
 

@@ -1,7 +1,9 @@
-package validator.marketcomprehension;
+package validator.database;
 
 import java.util.List;
 import java.util.Set;
+
+import validator.cluster.Document;
 
 public class DocumentPersistence {
 

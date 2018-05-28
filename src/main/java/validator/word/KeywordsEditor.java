@@ -1,4 +1,4 @@
-package validator;
+package validator.word;
 
 import java.util.Iterator;
 import java.util.Set;

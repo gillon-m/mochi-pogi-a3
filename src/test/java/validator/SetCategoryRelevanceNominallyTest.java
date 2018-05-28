@@ -16,6 +16,9 @@ import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.Test;
 
+import validator.cluster.Category;
+import validator.cluster.Relevance;
+
 import org.jbehave.core.junit.JUnitStory;
 
 public class SetCategoryRelevanceNominallyTest extends JUnitStory{
