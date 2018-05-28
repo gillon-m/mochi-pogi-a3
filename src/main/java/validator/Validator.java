@@ -154,7 +154,7 @@ public class Validator {
 		roles.add(new Administrator("a1", "p1"));
 		Mockito.when(db.getRoles()).thenReturn(roles);
 
-		Word word1 = Mockito.spy(new Word("Training", 10));
+		Word word1 = Mockito.spy(new Word("Cats", 10));
 		Word word2 = Mockito.spy(new Word("Dogs", 9));
 		Set<Word> words = new HashSet<Word>();
 		words.add(word1);
