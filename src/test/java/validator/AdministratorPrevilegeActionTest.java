@@ -40,7 +40,7 @@ public class AdministratorPrevilegeActionTest {
 		roles.add(Mockito.spy(new User("u4", "p4")));
 		roles.add(Mockito.spy(new Administrator("a1", "p1")));
 	}
-	/*Administrators need to know how many users have registered.*/
+
 	@Test
 	public void shouldReturnFourWhenAdminChecksNumberOfUsersInRegistryTest() {
 		Administrator admin = Mockito.spy(new Administrator("a1", "p1"));

@@ -82,7 +82,7 @@ public class Validator {
 			if(word ==null){
 				throw new Exception("Word doesn't exist");
 			}
-			System.out.print("Set the weight of the keyword: ");
+			System.out.print("Set the weight of the keyword (Choose a number between 1 and 10): ");
 			keywordEditor.changeKeywordPriority(word, Integer.parseInt(br.readLine()));
 			DocumentProcessor dp = new DocumentProcessor();
 			List<String> stringWords = new LinkedList<String>();
@@ -120,7 +120,7 @@ public class Validator {
 			if(c==null){
 				throw new Exception("Category not found");
 			}
-			System.out.print("Set relevance of "+c+": ");
+			System.out.print("Set relevance of "+c+"(Choose a number between 0.0 and 1.0): ");
 			c.relevance(Double.parseDouble(br.readLine()));
 			System.out.println();
 			System.out.print("Maturity of business idea: ");
