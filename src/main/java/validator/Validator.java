@@ -67,9 +67,10 @@ public class Validator {
 			KeywordsEditor keywordEditor = new KeywordsEditor(keyWords);
 			System.out.println();
 			System.out.print("Choose word: ");
+			String chosenWord = br.readLine();
 			Word word = null;
 			for(Word w: keyWords){
-				if(w.getName().equals(br.readLine())){
+				if(w.getName().equals(chosenWord)){
 					word = w;
 					break;
 				}
@@ -107,13 +108,22 @@ public class Validator {
 			for(Category c : categories){
 				System.out.print("- "+c+": ");
 				for(Document d: c.getDocumentsOfThisCategory()){
-					System.out.println("\""+d.getTitle()+"\"");
+					System.out.print("\""+d.getTitle()+"\" ");
 				}
 				System.out.println();
 			}
 			Set<Category> categorySet = new HashSet<Category>(categories);
 			Cluster cluster = new Cluster(categorySet);
-			System.out.println("Get maturity of business idea: ");
+			System.out.println();
+			System.out.print("Choose Category to set relevance: ");
+			Category c = cluster.get(br.readLine());
+			if(c==null){
+				throw new Exception("Category not found");
+			}
+			System.out.print("Set relevance of "+c+": ");
+			c.relevance(Double.parseDouble(br.readLine()));
+			System.out.println();
+			System.out.print("Maturity of business idea: ");
 			System.out.println(cluster.maturity());
 			System.out.println("==END OF DEMO==");
 			
