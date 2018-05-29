@@ -43,7 +43,6 @@ public class AuthenticationTest {
 		registry.setRoles();
 	}
 	
-	//check if they can successfully signin and are in the registry	
 	@Test
 	public void shouldSigninValidUserWhenGivenCorrectCredentialsTest() {
 		try {
@@ -77,7 +76,6 @@ public class AuthenticationTest {
 		}
 	}
 	
-	//check if the user and/or admin can signup
 	
 	@Test
 	public void shouldSuccessfullysSignUpUserWhenNewCredentialsAreEnteredTest() {
@@ -128,7 +126,6 @@ public class AuthenticationTest {
 	}
 
 	
-	//check if role can sign off
 	@Test
 	public void shouldChangeSignStatusWhenSignOutTest() {
 		Role role = db.getRoles().get(0);
